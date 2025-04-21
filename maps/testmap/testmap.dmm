@@ -1,0 +1,562 @@
+//MAP CONVERTED BY dmm2tgm.py THIS HEADER COMMENT PREVENTS RECONVERSION, DO NOT REMOVE
+"a" = (
+/turf/simulated/floor/plating,
+/area/centcom)
+"k" = (
+/obj/effect/floor_decal/industrial/warning{
+	dir = 4;
+	icon_state = "warning"
+	},
+/turf/simulated/floor/tiled/bunker/polar_white,
+/area/centcom)
+"l" = (
+/obj/effect/floor_decal/industrial/warning{
+	icon_state = "warning";
+	dir = 1
+	},
+/turf/simulated/floor/tiled/bunker/polar_white,
+/area/centcom)
+"p" = (
+/obj/effect/floor_decal/industrial/warning,
+/turf/simulated/floor/tiled/bunker/polar_white,
+/area/centcom)
+"w" = (
+/obj/effect/floor_decal/industrial/warning{
+	dir = 10
+	},
+/turf/simulated/floor/tiled/bunker/polar_white,
+/area/centcom)
+"B" = (
+/turf/simulated/wall/r_wall,
+/area/centcom)
+"J" = (
+/obj/effect/floor_decal/industrial/warning{
+	dir = 5
+	},
+/turf/simulated/floor/tiled/bunker/polar_white,
+/area/centcom)
+"K" = (
+/obj/machinery/cryopod,
+/turf/simulated/floor/tiled/bunker/polar_white,
+/area/centcom)
+"R" = (
+/obj/effect/floor_decal/industrial/warning{
+	icon_state = "warning";
+	dir = 9
+	},
+/turf/simulated/floor/tiled/bunker/polar_white,
+/area/centcom)
+"W" = (
+/obj/effect/floor_decal/industrial/warning{
+	icon_state = "warning";
+	dir = 8
+	},
+/turf/simulated/floor/tiled/bunker/polar_white,
+/area/centcom)
+"X" = (
+/obj/effect/landmark{
+	name = "JoinLateCryoCaptain"
+	},
+/turf/simulated/floor/tiled/bunker/polar_white,
+/area/centcom)
+"Y" = (
+/obj/effect/landmark{
+	name = "JoinLateCryo"
+	},
+/obj/machinery/light/small{
+	dir = 1;
+	light_power = 100;
+	name = "SUPER DEBUG LIGHT"
+	},
+/turf/simulated/floor/tiled/bunker/polar_white,
+/area/centcom)
+"Z" = (
+/obj/effect/floor_decal/industrial/warning{
+	dir = 6
+	},
+/turf/simulated/floor/tiled/bunker/polar_white,
+/area/centcom)
+
+(1,1,1) = {"
+B
+B
+B
+B
+B
+B
+B
+B
+B
+B
+B
+B
+B
+B
+B
+B
+B
+B
+B
+B
+B
+"}
+(2,1,1) = {"
+B
+a
+a
+a
+a
+a
+a
+a
+a
+a
+a
+a
+a
+a
+a
+a
+a
+a
+a
+a
+B
+"}
+(3,1,1) = {"
+B
+a
+a
+a
+a
+a
+a
+a
+a
+a
+a
+a
+a
+a
+a
+a
+a
+a
+a
+a
+B
+"}
+(4,1,1) = {"
+B
+a
+a
+a
+a
+a
+a
+a
+a
+a
+a
+a
+a
+a
+a
+a
+a
+a
+a
+a
+B
+"}
+(5,1,1) = {"
+B
+a
+a
+a
+a
+a
+a
+a
+a
+a
+a
+a
+a
+a
+a
+a
+a
+a
+a
+a
+B
+"}
+(6,1,1) = {"
+B
+a
+a
+a
+a
+a
+a
+a
+a
+a
+a
+a
+a
+a
+a
+a
+a
+a
+a
+a
+B
+"}
+(7,1,1) = {"
+B
+a
+a
+a
+a
+a
+a
+a
+a
+a
+a
+a
+a
+a
+a
+a
+a
+a
+a
+a
+B
+"}
+(8,1,1) = {"
+B
+a
+a
+a
+a
+a
+a
+a
+a
+a
+a
+a
+a
+a
+a
+a
+a
+a
+a
+a
+B
+"}
+(9,1,1) = {"
+B
+a
+a
+a
+a
+a
+a
+a
+R
+W
+W
+w
+a
+a
+a
+a
+a
+a
+a
+a
+B
+"}
+(10,1,1) = {"
+B
+a
+a
+a
+a
+a
+a
+a
+l
+K
+X
+p
+a
+a
+a
+a
+a
+a
+a
+a
+B
+"}
+(11,1,1) = {"
+B
+a
+a
+a
+a
+a
+a
+a
+l
+B
+Y
+p
+a
+a
+a
+a
+a
+a
+a
+a
+B
+"}
+(12,1,1) = {"
+B
+a
+a
+a
+a
+a
+a
+a
+J
+k
+k
+Z
+a
+a
+a
+a
+a
+a
+a
+a
+B
+"}
+(13,1,1) = {"
+B
+a
+a
+a
+a
+a
+a
+a
+a
+a
+a
+a
+a
+a
+a
+a
+a
+a
+a
+a
+B
+"}
+(14,1,1) = {"
+B
+a
+a
+a
+a
+a
+a
+a
+a
+a
+a
+a
+a
+a
+a
+a
+a
+a
+a
+a
+B
+"}
+(15,1,1) = {"
+B
+a
+a
+a
+a
+a
+a
+a
+a
+a
+a
+a
+a
+a
+a
+a
+a
+a
+a
+a
+B
+"}
+(16,1,1) = {"
+B
+a
+a
+a
+a
+a
+a
+a
+a
+a
+a
+a
+a
+a
+a
+a
+a
+a
+a
+a
+B
+"}
+(17,1,1) = {"
+B
+a
+a
+a
+a
+a
+a
+a
+a
+a
+a
+a
+a
+a
+a
+a
+a
+a
+a
+a
+B
+"}
+(18,1,1) = {"
+B
+a
+a
+a
+a
+a
+a
+a
+a
+a
+a
+a
+a
+a
+a
+a
+a
+a
+a
+a
+B
+"}
+(19,1,1) = {"
+B
+a
+a
+a
+a
+a
+a
+a
+a
+a
+a
+a
+a
+a
+a
+a
+a
+a
+a
+a
+B
+"}
+(20,1,1) = {"
+B
+a
+a
+a
+a
+a
+a
+a
+a
+a
+a
+a
+a
+a
+a
+a
+a
+a
+a
+a
+B
+"}
+(21,1,1) = {"
+B
+B
+B
+B
+B
+B
+B
+B
+B
+B
+B
+B
+B
+B
+B
+B
+B
+B
+B
+B
+B
+"}

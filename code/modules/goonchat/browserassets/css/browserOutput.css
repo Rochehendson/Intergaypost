@@ -1,0 +1,642 @@
+/*****************************************
+*
+* GLOBAL STYLES
+*
+******************************************/
+@font-face {
+    font-family: tablichka;
+    src: url(Tablichka.ttf);
+}
+
+html, body {
+    padding: 0;
+    white-space: normal;
+    margin: 0;
+	overflow: hidden;
+    height: 100%;
+	position: relative;
+	width: 100%;
+	color: #cccce2;
+    word-wrap: break-word;
+}
+body {
+	background-image: url("chatbg.png");
+	background-size: 100%;
+	background-attachment: scroll;
+	font-family: Bahnschrift, sans-serif;
+	font-size: 19px;
+	font-color: #8b97a6;
+    white-space: normal;
+    height: 102%;
+	position: relative;
+    margin: 0px;
+	overflow: hidden;
+	line-height: 1.2;
+	word-wrap: break-word;
+}
+
+em {
+	font-style: normal;
+	font-weight: bold;
+}
+
+img {
+	margin: 0;
+	padding: 0;
+	line-height: 1;
+	size: 4in 6in;
+	width: 4px;
+	height: 4px;
+	-ms-interpolation-mode: nearest-neighbor;
+	image-rendering: pixelated;
+}
+img.icon {
+	width: 4px;
+	height: 4px;
+	size: 4in 6in;
+	vertical-align: bottom;
+}
+
+a {color: #85cf17;}
+a.visited {color: #85cf17;}
+a:visited {color: #85cf17;}
+a.popt {text-decoration: none;}
+
+/*****************************************
+*
+* OUTPUT NOT RELATED TO ACTUAL MESSAGES
+*
+******************************************/
+#loading {
+	position: fixed;
+	width: 300px;
+	height: 150px;
+	text-align: center;
+	left: 50%;
+	top: 50%;
+	margin: -75px 0 0 -150px;
+}
+#loading i {display: block; padding-bottom: 3px;}
+
+#messages {
+	font-size: 16px;
+	padding: 3px;
+	margin: 0;
+	word-wrap: break-word;
+}
+#newMessages {
+	position: fixed;
+	display: block;
+	bottom: 0;
+	right: 0;
+	padding: 8px;
+	background: #202020;
+	text-decoration: none;
+	font-variant: small-caps;
+	font-size: 1.1em;
+	font-weight: bold;
+	color: #a4bad6;
+}
+#newMessages:hover {background: #171717;}
+#newMessages i {vertical-align: middle; padding-left: 3px;}
+#ping {
+	position: fixed;
+	top: 0;
+	right: 135px;
+	width: 45px;
+	background: #202020;
+	height: 30px;
+	padding: 8px 0 2px 0;
+}
+#ping i {display: block; text-align: center;}
+#ping .ms {
+	display: block;
+	text-align: center;
+	font-size: 8pt;
+	padding-top: 2px;
+}
+#userBar {
+	position: fixed;
+	top: 0;
+	right: 0;
+}
+
+#jspPane {
+    padding: 3px;
+    position: absolute;
+    margin: 0;
+    width: 98%;
+    overflow: hidden;
+    word-wrap: break-word;
+}
+
+#userBar .subCell {
+	background: #202020;
+	height: 30px;
+	padding: 5px 0;
+	display: block;
+	color: #a4bad6;
+	text-decoration: none;
+	line-height: 28px;
+	border-top: 1px solid #171717;
+}
+#userBar .subCell:hover {background: #202020;}
+#userBar .toggle {
+	width: 45px;
+	background: #202020;
+	border-top: 0;
+	float: right;
+	text-align: center;
+}
+#userBar .sub {clear: both; display: none; width: 180px;}
+#userBar .sub.scroll {overflow-y: scroll;}
+#userBar .sub.subCell {padding: 3px 0 3px 8px; line-height: 30px; font-size: 0.9em; clear: both;}
+#userBar .sub span {
+	display: block;
+	line-height: 30px;
+	float: left;
+}
+#userBar .sub i {
+	display: block;
+	padding: 0 5px;
+	font-size: 1.1em;
+	width: 22px;
+	text-align: center;
+	line-height: 30px;
+	float: right;
+}
+#userBar .sub input {
+	position: absolute;
+	padding: 7px 5px;
+	width: 121px;
+	line-height: 30px;
+	float: left;
+}
+#userBar .topCell {border-top: 0;}
+
+/* POPUPS */
+.popup {
+	position: fixed;
+	top: 50%;
+	left: 50%;
+	background: #ddd;
+}
+.popup .close {
+	position: absolute;
+	background: #aaa;
+	top: 0;
+	right: 0;
+	color: #333;
+	text-decoration: none;
+	z-index: 2;
+	padding: 0 10px;
+	height: 30px;
+	line-height: 30px;
+}
+.popup .close:hover {background: #999;}
+.popup .head {
+	background: #999;
+	color: #ddd;
+	padding: 0 10px;
+	height: 30px;
+	line-height: 30px;
+	text-transform: uppercase;
+	font-size: 0.9em;
+	font-weight: bold;
+	border-bottom: 2px solid green;
+}
+.popup input {border: 1px solid #999; background: #fff; margin: 0; padding: 5px; outline: none; color: #333;}
+.popup input[type=text]:hover, .popup input[type=text]:active, .popup input[type=text]:focus {border-color: green;}
+.popup input[type=submit] {padding: 5px 10px; background: #999; color: #ddd; text-transform: uppercase; font-size: 0.9em; font-weight: bold;}
+.popup input[type=submit]:hover, .popup input[type=submit]:focus, .popup input[type=submit]:active {background: #aaa; cursor: pointer;}
+
+.changeFont {padding: 10px;}
+.changeFont a {display: block; text-decoration: none; padding: 3px; color: #333;}
+.changeFont a:hover {background: #ccc;}
+
+.highlightPopup {padding: 10px; text-align: center;}
+.highlightPopup input[type=text] {display: block; width: 215px; text-align: left; margin-top: 5px;}
+.highlightPopup input.highlightColor {background-color: #FFFF00;}
+.highlightPopup input.highlightTermSubmit {margin-top: 5px;}
+
+/* ADMIN CONTEXT MENU */
+.contextMenu {
+	background-color: #ddd;
+	position: fixed;
+	margin: 2px;
+	width: 150px;
+}
+.contextMenu a {
+	display: block;
+	padding: 2px 5px;
+	text-decoration: none;
+	color: #333;
+}
+
+.contextMenu a:hover {
+	background-color: #ccc;
+}
+
+/* ADMIN FILTER MESSAGES MENU */
+.filterMessages {padding: 5px;}
+.filterMessages div {padding: 2px 0;}
+.filterMessages input {}
+.filterMessages label {}
+
+.icon-stack {height: 1em; line-height: 1em; width: 1em; vertical-align: middle; margin-top: -2px;}
+
+
+/*****************************************
+*
+* OUTPUT ACTUALLY RELATED TO MESSAGES
+*
+******************************************/
+
+/* MOTD */
+.motd {color: #a4bad6;	font-family: Roboto Condensed;}
+.motd h1, .motd h2, .motd h3, .motd h4, .motd h5, .motd h6 {color: #a4bad6;	text-decoration: underline;}
+.motd a, .motd a:link, .motd a:visited, .motd a:active, .motd a:hover {color: #a4bad6;}
+
+/* ADD HERE FOR BOLD */
+.bold, .prefix, .ooc, .looc, .adminooc, .admin, .medal, .yell {font-weight: bold;}
+
+.name {font-weight: 150; font-size: 105%; color: #395ecc; text-shadow: 0 0 4px #395ecc}
+.nameradio {font-weight: 100; font-size: 102%}
+
+/* ADD HERE FOR ITALIC */
+.italic, .italics, .emote {font-style: italic;}
+
+/* OUTPUT COLORS */
+.highlight {background: yellow;}
+
+h1, h2, h3, h4, h5, h6	{color: #a4bad6;font-family: Roboto Condensed;}
+
+em						{font-style: normal;	font-weight: bold;}
+
+/* LOG */
+.log_message			{color: #386aff;	font-weight: bold;}
+
+.combat {
+    color: #fd5b5b;
+	text-shadow: 0px 0px 2px rgba(255, 0, 0, 0.4);
+}
+
+.combatbold {
+    color: #fd5b5b;
+    font-weight: bold;
+    text-shadow: 0px 0px 2px rgba(255, 0, 0, 0.4);
+}
+
+/* OOC */
+.ooc					{font-weight: bold;}
+.ooc img.text_tag		{width: 32px; height: 10px;}
+
+.ooc .everyone			{color: #9461fa;}
+.ooc .looc				{color: #3a9696;}
+.ooc .elevated			{color: #2e78d9;}
+.ooc .moderator			{color: #184880;}
+.ooc .developer			{color: #1b521f;}
+.ooc .admin				{color: #b82e00;}
+.ooc .aooc				{color: #960018;}
+
+/* Admin: Private Messages */
+.pm  .howto				{color: #ff0000;	font-weight: bold;		font-size: 200%;}
+.pm  .in				{color: #ff0000;}
+.pm  .out				{color: #ff0000;}
+.pm  .other				{color: #5353ff;}
+
+/* Admin: Channels */
+.mod_channel			{color: #735638;	font-weight: bold;}
+.mod_channel .admin		{color: #b82e00;	font-weight: bold;}
+.admin_channel			{color: #9611d4;	font-weight: bold;}
+
+/* Radio: Misc */
+.deadsay				{color: #e2c1ff}
+.radio					{color: #759bd9; text-shadow: 0 0 2px #759bd9;}
+.deptradio				{color: #ff00ff;}	/* when all other department colors fail */
+.newscaster				{color: #750000;}
+
+/* Radio Channels */
+.comradio				{color: #193a7a;}
+.syndradio				{color: #6d3f40;}
+.centradio				{color: #5c5c8a;}
+.airadio				{color: #ff00ff;}
+.entradio				{color: #339966;}
+
+.secradio				{color: #b41c1c;}
+.engradio				{color: #a66300;}
+.medradio				{color: #008160;}
+.sciradio				{color: #993399;}
+.supradio				{color: #5f4519;}
+.srvradio				{color: #6eaa2c;}
+.expradio				{color: #a3a332;}
+.inqradio				{color: #696969;}
+/* Miscellaneous */
+.alert					{color: #d82020; text-shadow: 0 0 4px #d82020;}
+h1.alert, h2.alert		{color: #2e852e; text-shadow: 0 0 2px #2e852e; font-family: tablichka;}
+h3.announcementalert		{color: #078c00; text-shadow: 0 0 8px #078c00; font-family: tablichka;}
+
+.emote					{font-style: italic; color: #454a52;}
+
+/* Game Messages */
+
+.looksat {
+    color: #635fcf;
+    font-size: 85%;
+}
+
+.looksatbold {
+    color: #635fcf;
+    font-weight: bold;
+    font-size: 80%;
+    text-shadow: 0px 0px 2px rgba(255, 0, 0, 0.4);
+    margin-left: 3px;
+}
+
+.examinebold {
+    color: #635fcf;
+    font-weight: bold;
+    font-size: 100%;
+    text-shadow: 0px 0px 2px rgba(255, 0, 0, 0.4);
+    margin-left: 2px;
+}
+
+.passivebold {
+    color: #416777;
+    font-weight: bold;
+    text-shadow: 0px 0px 2px rgba(255, 0, 0, 0.4);
+    margin-left: 2px;
+}
+
+.statustext {
+    color: #6e6e6e;
+    text-shadow: 0px 0px 1px #00000f;
+}
+
+.uppertext {
+    color: #685f8a;
+    font-weight: bold;
+    text-shadow: 0px 0px 2px rgba(255, 0, 0, 0.4);
+}
+
+.bname {
+    color: #8a8f99;
+    font-weight: bold;
+    text-shadow: 0px 0px 2px rgba(255, 0, 0, 0.4);
+}
+
+.graytext {
+    color: #909090;
+    text-shadow: 1px;
+}
+
+a {
+    float: top;
+    font-family: cond, sans-serif;
+    text-shadow: 0px 0px 3px #4d661a;
+    color: #85cf17;
+    font-weight: bold;
+    text-decoration: none;
+    outline: none;
+    border: none;
+    font-size: 94%;
+}
+
+a:hover {
+    color: #00994d;
+    text-shadow: 0px 0px 3px #00945b;
+    background: rgba(255, 0, 0, 0.2);
+    outline: none;
+    border: none;
+    font-weight: bold;
+    font-size: 94%;
+}
+
+a:visited {
+    color: #85cf17;
+    text-shadow: 0px 0px 3px #85cf17;
+    background: rgba(255, 0, 0, 0.2);
+    outline: none;
+    border: none;
+    font-weight: bold;
+    font-size: 94%;
+}
+
+.attack					{color: #ff0000;}
+.moderate				{color: #cc0000;}
+.disarm					{color: #990000;}
+.passive				{color: #660000;}
+
+.danger					{color: #c51e1e; text-shadow: 0 0 7px #c51e1e;}
+.blueglow				{color: #2f785a; text-shadow: 0 0 5px #2f785a;}
+.warning				{color: #c51e1e;	font-style: italic; text-shadow: 0 0 4px #c51e1e;}
+.boldannounce			{color: #c51e1e;	font-weight: bold; text-shadow: 0 0 3px #c51e1e;}
+.rose					{color: #ff5050;}
+.info					{color: #065f35; text-shadow: 0 0 5px #065f35;}
+.notice					{color: #065535; text-shadow: 0 0 3px #065535;}
+.alium					{color: #00ff00;}
+.cult					{color: #aa1c1c;}
+.wakeup					{color: #8ebf92; text-shadow: 0 0 2px #8ebf92;}
+.tetracorp				{color: #6a0080; text-shadow: 0 0 4px #6a0080;}
+.manifest				{color: #505050; text-shadow: 0 0 4px #505050;}
+.manifesttext			{color: #008a37; text-shadow: 0 0 4px #008a37;}
+.hygiene				{color: #8f9779; text-shadow: 0 0 1px #8f9779;}
+.feedback				{color: #85cf17; text-shadow: 0 0 1px #85cf17;}
+
+/* Languages */
+.alien					{color: #855d85;}
+.changeling				{color: #059223;	font-style: italic;}
+.tajaran				{color: #803b56;}
+.tajaran_signlang		{color: #941c1c;}
+.skrell					{color: #00ced1;}
+.soghun					{color: #228b22;}
+.nabber_lang			{color: #525252;}
+.solcom					{color: #22228b;}
+.vox					{color: #aa00aa;}
+.rough					{font-family: "Trebuchet MS", cursive, sans-serif;}
+.say_quote				{font-family: Roboto Condensed;}
+.terran					{color: #9c250b;}
+.moon					{color: #422863;}
+.spacer					{color: #ff6600;}
+
+.interface				{color: #750e75;}
+
+.good                   {color: #4f7529; font-weight: bold;}
+.bad                    {color: #ee0000; font-weight: bold;}
+
+/* unrelated */
+.box {
+    display: inline-block;
+    min-width: 10px;
+    text-align: center;
+    border: 1px ridge #151319;
+    padding: 10px;
+    font-size: 15px;
+    vertical-align: middle;   
+    background: rgba(40, 40, 40, 0.5);
+    *zoom: 1;
+    *display: inline;
+}
+
+.firstdiv {
+    padding: 10px;
+    text-align: center;
+    vertical-align: middle;
+    *zoom: 1;
+    *display: inline;
+}
+
+@keyframes hypnocolor {
+	0%		{color: #202020;}
+	25%		{color: #4b02ac;}
+	50%		{color: #9f41f1;}
+	75%		{color: #541c9c;}
+	100%	{color: #7adbf3;}
+}
+
+.phobia			{color: #dd0000;	font-weight: bold;	animation: phobia 750ms infinite;}
+@keyframes phobia {
+	0%		{color: #f75a5a;}
+	50%		{color: #dd0000;}
+	100%	{color: #f75a5a;}
+}
+
+.icon 					{height: 1em;	width: auto;}
+
+.connectionClosed, .fatalError {background: #400000;	color: white;	padding: 5px;}
+.connectionClosed.restored {background: #003440;}
+.internal.boldnshit {color: #3d5bc3;	font-weight: bold;}
+
+/* HELPER CLASSES */
+.text-normal {font-weight: normal;	font-style: normal;}
+.hidden {display: none;	visibility: hidden;}
+.ml-1 {margin-left: 1em;}
+.ml-2 {margin-left: 2em;}
+.ml-3 {margin-left: 3em;}
+
+.playerjoinbox {
+    border: 1px groove #5C41C6;
+	background: rgba(40, 40, 40, 0.3);
+	margin: 2px 8px;
+	padding: 8px 12px;
+	vertical-align: middle;
+	max-width: 550px;
+}
+
+.announcementbox {
+    border: 1px groove #5C41C6;
+	background: rgba(40, 40, 40, 0.3);
+	margin: 2px 8px;
+	padding: 8px 12px;
+	max-width: 750px;
+}
+
+.firstdivexamine {
+    padding: 10px;
+    text-align: center;
+    vertical-align: middle;
+    *zoom: 1;
+    *display: inline;
+}
+
+.boxexamine {
+    display: inline-block;
+    min-width: 10px;
+    width: 275px;
+	max-width: 550px;
+    text-align: left;
+    padding: 10px;
+    font-size: 15px;
+    vertical-align: middle;
+    background-color: rgba(50, 50, 50, 0.3);
+    border: 1px solid rgba(50, 50, 50, 0.3);
+    *zoom: 1;
+    *display: inline;
+}
+
+.firstdivskill {
+    padding: 10px;
+    text-align: center;
+    vertical-align: middle;
+    *zoom: 1;
+    *display: inline;
+}
+
+.skilldiv {
+    display: inline-block;
+    min-width: 10px;
+    width: 270px;
+    text-align: left;
+    padding: 10px;
+    font-size: 15px;
+    vertical-align: middle;
+    background-color: rgba(50, 50, 50, 0.3);
+    border: 1px solid rgba(50, 50, 50, 0.3);
+    *zoom: 1;
+    *display: inline;
+}
+
+.linediv {
+    display: inline-block;
+    padding-top: 1px;
+    padding-bottom: 1px;
+    margin-left: auto;
+    margin-right: auto;
+    text-align: center;
+}
+
+.linexd {
+    border: none;
+    height: 1px;
+    float: center;
+    margin-left: auto !important;
+    margin-right: auto !important;
+    color: #444;
+    width: 80%;
+    border-bottom: 1px solid #444;
+}
+
+.firstdivexamineplyr {
+    padding: 10px;
+    text-align: center;
+    vertical-align: middle;
+    *zoom: 1;
+    *display: inline;
+}
+
+.boxexamineplyr {
+    display: inline-block;
+    min-width: 10px;
+    width: 280px;
+    text-align: left;
+    padding: 10px;
+	max-width: 550px;
+    font-size: 15px;
+    vertical-align: middle;
+    background-color: rgba(50, 50, 50, 0.3);
+    border: 1px solid rgba(50, 50, 50, 0.3);
+    *zoom: 1;
+    *display: inline;
+}
+
+.firstdivmood {
+    padding: 10px;
+    text-align: center;
+    vertical-align: middle;
+    *zoom: 1;
+    *display: inline;
+}
+
+.moodbox {
+    display: inline-block;
+    min-width: 10px;
+    width: 280px;
+    text-align: left;
+    padding: 10px;
+    font-size: 15px;
+    vertical-align: middle;
+    background-color: rgba(50, 50, 50, 0.3);
+    border: 1px solid rgba(50, 50, 50, 0.3);
+    *zoom: 1;
+    *display: inline;
+}
