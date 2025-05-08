@@ -142,7 +142,7 @@
 	return 0
 
 /mob/proc/movement_delay()
-	. = 0
+	. = -0.5
 	if(istype(loc, /turf))
 		var/turf/T = loc
 		. += T.movement_delay

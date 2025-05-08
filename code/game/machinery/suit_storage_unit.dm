@@ -200,7 +200,6 @@
 			return
 		else
 			return
-	return
 
 
 /obj/machinery/suit_storage_unit/attack_hand(mob/user as mob)
@@ -1170,7 +1169,7 @@
 				suit.SetName("exploration voidsuit")
 				suit.icon_state = "void_explorer"
 
-		if("^%###^%$" || "Mercenary")
+		if("^%###^%$", "Mercenary")
 			if(helmet)
 				helmet.SetName("blood-red voidsuit helmet")
 				helmet.icon_state = "rig0-syndie"
