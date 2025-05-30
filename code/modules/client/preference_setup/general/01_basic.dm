@@ -44,15 +44,15 @@ datum/preferences
 
 /datum/category_item/player_setup_item/general/basic/content()
 	. = list()
-	. += "<b>Gender:</b> <a href='?src=\ref[src];gender=1'><b>[pref.gender == MALE ? "Male" : "Female"]</b></a><br>"
-	. += "<b>Age:</b> <a href='?src=\ref[src];age=1'>[pref.age]</a><br>"
-	//. += "<b>Spawn Point</b>: <a href='?src=\ref[src];spawnpoint=1'>[pref.spawnpoint]</a><br>"
+	. += "<b>Gender:</b> <a href='byond://?src=\ref[src];gender=1'><b>[pref.gender == MALE ? "Male" : "Female"]</b></a><br>"
+	. += "<b>Age:</b> <a href='byond://?src=\ref[src];age=1'>[pref.age]</a><br>"
+	//. += "<b>Spawn Point</b>: <a href='byond://?src=\ref[src];spawnpoint=1'>[pref.spawnpoint]</a><br>"
 	. += "<b>RELIGION</b> "
-	. += "<a href='?src=\ref[src];religion=1'>[pref.religion]</a><br/>"
+	. += "<a href='byond://?src=\ref[src];religion=1'>[pref.religion]</a><br/>"
 	//. += "<b>Join Families</b> "
-	//. += "<a href='?src=\ref[src];family=1'>[pref.family ? "Yes" : "No"]</a><br/>"
+	//. += "<a href='byond://?src=\ref[src];family=1'>[pref.family ? "Yes" : "No"]</a><br/>"
 	//if(config.allow_Metadata)
-		//. += "<b>OOC Notes:</b> <a href='?src=\ref[src];metadata=1'> Edit </a><br>"
+		//. += "<b>OOC Notes:</b> <a href='byond://?src=\ref[src];metadata=1'> Edit </a><br>"
 	. = jointext(.,null)
 
 /datum/category_item/player_setup_item/general/basic/OnTopic(var/href,var/list/href_list, var/mob/user)

@@ -53,7 +53,6 @@
 		if(message)
 			to_chat(src, "<span class = 'warning'>[message]</span>")
 		return 0
-	return 1
 
 /mob/proc/learn_stats(var/stat_type)
 	var/initial_stat = round(stats[stat_type])

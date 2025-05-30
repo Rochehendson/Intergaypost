@@ -230,7 +230,7 @@
 			if (!transfer)
 				to_chat(user, "<span class='warning'>You must weld or remove \the [repairing] from \the [src] before you can add anything else.</span>")
 		else
-			repairing = stack.split(amount_needed, force=TRUE)
+			repairing = stack.split(amount_needed)
 			if (repairing)
 				repairing.loc = src
 				transfer = repairing.amount

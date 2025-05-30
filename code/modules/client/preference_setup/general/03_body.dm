@@ -135,7 +135,7 @@ var/global/list/valid_bloodtypes = list("A+", "A-", "B+", "B-", "AB+", "AB-", "O
 
 	var/datum/species/mob_species = all_species[pref.species]
 	. += "<table><tr style='vertical-align:top'><td><b>Body</b> "
-	. += "(<a href='?src=\ref[src];random=1'>&reg;</A>)"
+	. += "(<a href='byond://?src=\ref[src];random=1'>&reg;</A>)"
 	. += "<br>"
 
 /*
@@ -149,21 +149,21 @@ var/global/list/valid_bloodtypes = list("A+", "A-", "B+", "B-", "AB+", "AB-", "O
 		. += "<br>"
 */
 
-	//. += "Species: <a href='?src=\ref[src];show_species=1'>[pref.species]</a><br>"
+	//. += "Species: <a href='byond://?src=\ref[src];show_species=1'>[pref.species]</a><br>"
 	//if(/datum/species/nabber)
 		//.+= "unavailable."
-	. += "Blood Type: <a href='?src=\ref[src];blood_type=1'>[pref.b_type]</a><br>"
+	. += "Blood Type: <a href='byond://?src=\ref[src];blood_type=1'>[pref.b_type]</a><br>"
 
 	if(has_flag(mob_species, HAS_BASE_SKIN_COLOURS))
-		. += "Base Colour: <a href='?src=\ref[src];base_skin=1'>[pref.s_base]</a><br>"
+		. += "Base Colour: <a href='byond://?src=\ref[src];base_skin=1'>[pref.s_base]</a><br>"
 
 	if(has_flag(mob_species, HAS_A_SKIN_TONE))
-		. += "Skin Tone: <a href='?src=\ref[src];skin_tone=1'>[-pref.s_tone + 35]/[mob_species.max_skin_tone()]</a><br>"
+		. += "Skin Tone: <a href='byond://?src=\ref[src];skin_tone=1'>[-pref.s_tone + 35]/[mob_species.max_skin_tone()]</a><br>"
 
 
-	. += "Needs Glasses: <a href='?src=\ref[src];disabilities=[NEARSIGHTED]'><b>[pref.disabilities & NEARSIGHTED ? "Yes" : "No"]</b></a><br>"
-	. += "Limbs: <a href='?src=\ref[src];limbs=1'>Adjust</a> <a href='?src=\ref[src];reset_limbs=1'>Reset</a><br>"
-	. += "Internal Organs: <a href='?src=\ref[src];organs=1'>Adjust</a><br>"
+	. += "Needs Glasses: <a href='byond://?src=\ref[src];disabilities=[NEARSIGHTED]'><b>[pref.disabilities & NEARSIGHTED ? "Yes" : "No"]</b></a><br>"
+	. += "Limbs: <a href='byond://?src=\ref[src];limbs=1'>Adjust</a> <a href='byond://?src=\ref[src];reset_limbs=1'>Reset</a><br>"
+	. += "Internal Organs: <a href='byond://?src=\ref[src];organs=1'>Adjust</a><br>"
 
 	//display limbs below
 	var/ind = 0
@@ -251,34 +251,34 @@ var/global/list/valid_bloodtypes = list("A+", "A-", "B+", "B-", "AB+", "AB-", "O
 
 	. += "</td><td><b>Preview</b><br>"
 	. += "<div class='statusDisplay'><center><img src=previewicon.png width=[pref.preview_icon.Width()] height=[pref.preview_icon.Height()]></center></div>"
-	//. += "<br><a href='?src=\ref[src];cycle_bg=1'>Cycle background</a>"
-	//. += "<br><a href='?src=\ref[src];toggle_preview_value=[EQUIP_PREVIEW_LOADOUT]'>[pref.equip_preview_mob & EQUIP_PREVIEW_LOADOUT ? "Hide loadout" : "Show loadout"]</a>"
-	//. += "<br><a href='?src=\ref[src];toggle_preview_value=[EQUIP_PREVIEW_JOB]'>[pref.equip_preview_mob & EQUIP_PREVIEW_JOB ? "Hide job gear" : "Show job gear"]</a>"
+	//. += "<br><a href='byond://?src=\ref[src];cycle_bg=1'>Cycle background</a>"
+	//. += "<br><a href='byond://?src=\ref[src];toggle_preview_value=[EQUIP_PREVIEW_LOADOUT]'>[pref.equip_preview_mob & EQUIP_PREVIEW_LOADOUT ? "Hide loadout" : "Show loadout"]</a>"
+	//. += "<br><a href='byond://?src=\ref[src];toggle_preview_value=[EQUIP_PREVIEW_JOB]'>[pref.equip_preview_mob & EQUIP_PREVIEW_JOB ? "Hide job gear" : "Show job gear"]</a>"
 	. += "</td></tr></table>"
 
 	. += "<b>Hair</b><br>"
 	. += " Style: <a style='margin-right: 5px;' href='?src=\ref[src];hair_style=1'>[pref.h_style]</a>"
 	. += " > "
 	if(has_flag(mob_species, HAS_HAIR_COLOR))
-		// . += "<a href='?src=\ref[src];hair_color=1'>Change Color</a> <font face='fixedsys' size='3' color='#[num2hex(pref.r_hair, 2)][num2hex(pref.g_hair, 2)][num2hex(pref.b_hair, 2)]'><table style='display:inline;' bgcolor='#[num2hex(pref.r_hair, 2)][num2hex(pref.g_hair, 2)][num2hex(pref.b_hair)]'><tr><td>__</td></tr></table></font> "
-		. += "<a href='?src=\ref[src];hair_color=1' style='margin-left: 5px; background-color:#[num2hex(pref.r_hair, 2)][num2hex(pref.g_hair, 2)][num2hex(pref.b_hair, 2)];'>Color</a>"
+		// . += "<a href='byond://?src=\ref[src];hair_color=1'>Change Color</a> <font face='fixedsys' size='3' color='#[num2hex(pref.r_hair, 2)][num2hex(pref.g_hair, 2)][num2hex(pref.b_hair, 2)]'><table style='display:inline;' bgcolor='#[num2hex(pref.r_hair, 2)][num2hex(pref.g_hair, 2)][num2hex(pref.b_hair)]'><tr><td>__</td></tr></table></font> "
+		. += "<a href='byond://?src=\ref[src];hair_color=1' style='margin-left: 5px; background-color:#[num2hex(pref.r_hair, 2)][num2hex(pref.g_hair, 2)][num2hex(pref.b_hair, 2)];'>Color</a>"
 	. += "<br>"
 
 	. += "<br><b>Facial</b><br>"
 	. += " Style: <a style='margin-right: 5px;' href='?src=\ref[src];facial_style=1'>[pref.f_style]</a>"
 	. += " > "
 	if(has_flag(mob_species, HAS_HAIR_COLOR))
-		// . += "<a href='?src=\ref[src];facial_color=1'>Change Color</a> <font face='fixedsys' size='3' color='#[num2hex(pref.r_facial, 2)][num2hex(pref.g_facial, 2)][num2hex(pref.b_facial, 2)]'><table  style='display:inline;' bgcolor='#[num2hex(pref.r_facial, 2)][num2hex(pref.g_facial, 2)][num2hex(pref.b_facial)]'><tr><td>__</td></tr></table></font> "
-		. += "<a href='?src=\ref[src];facial_color=1' style='margin-left: 5px; background-color:#[num2hex(pref.r_facial, 2)][num2hex(pref.g_facial, 2)][num2hex(pref.b_facial, 2)];'>Color</a>"
+		// . += "<a href='byond://?src=\ref[src];facial_color=1'>Change Color</a> <font face='fixedsys' size='3' color='#[num2hex(pref.r_facial, 2)][num2hex(pref.g_facial, 2)][num2hex(pref.b_facial, 2)]'><table  style='display:inline;' bgcolor='#[num2hex(pref.r_facial, 2)][num2hex(pref.g_facial, 2)][num2hex(pref.b_facial)]'><tr><td>__</td></tr></table></font> "
+		. += "<a href='byond://?src=\ref[src];facial_color=1' style='margin-left: 5px; background-color:#[num2hex(pref.r_facial, 2)][num2hex(pref.g_facial, 2)][num2hex(pref.b_facial, 2)];'>Color</a>"
 	. += "<br>"
 
 	if(has_flag(mob_species, HAS_EYE_COLOR))
 		. += "<br><b>Eyes</b><br>"
-		. += "<a href='?src=\ref[src];eye_color=1'>Change Color</a> <font face='fixedsys' size='3' color='#[num2hex(pref.r_eyes, 2)][num2hex(pref.g_eyes, 2)][num2hex(pref.b_eyes, 2)]'><table  style='display:inline;' bgcolor='#[num2hex(pref.r_eyes, 2)][num2hex(pref.g_eyes, 2)][num2hex(pref.b_eyes)]'><tr><td>__</td></tr></table></font><br>"
+		. += "<a href='byond://?src=\ref[src];eye_color=1'>Change Color</a> <font face='fixedsys' size='3' color='#[num2hex(pref.r_eyes, 2)][num2hex(pref.g_eyes, 2)][num2hex(pref.b_eyes, 2)]'><table  style='display:inline;' bgcolor='#[num2hex(pref.r_eyes, 2)][num2hex(pref.g_eyes, 2)][num2hex(pref.b_eyes)]'><tr><td>__</td></tr></table></font><br>"
 
 	if(has_flag(mob_species, HAS_SKIN_COLOR))
 		. += "<br><b>Body Color</b><br>"
-		. += "<a href='?src=\ref[src];skin_color=1'>Change Color</a> <font face='fixedsys' size='3' color='#[num2hex(pref.r_skin, 2)][num2hex(pref.g_skin, 2)][num2hex(pref.b_skin, 2)]'><table style='display:inline;' bgcolor='#[num2hex(pref.r_skin, 2)][num2hex(pref.g_skin, 2)][num2hex(pref.b_skin)]'><tr><td>__</td></tr></table></font><br>"
+		. += "<a href='byond://?src=\ref[src];skin_color=1'>Change Color</a> <font face='fixedsys' size='3' color='#[num2hex(pref.r_skin, 2)][num2hex(pref.g_skin, 2)][num2hex(pref.b_skin, 2)]'><table style='display:inline;' bgcolor='#[num2hex(pref.r_skin, 2)][num2hex(pref.g_skin, 2)][num2hex(pref.b_skin)]'><tr><td>__</td></tr></table></font><br>"
 	. = jointext(.,null)
 
 /datum/category_item/player_setup_item/general/body/proc/has_flag(var/datum/species/mob_species, var/flag)
@@ -593,7 +593,7 @@ var/global/list/valid_bloodtypes = list("A+", "A-", "B+", "B-", "AB+", "AB-", "O
 		pref.species_preview = SPECIES_HUMAN
 	var/datum/species/current_species = all_species[pref.species_preview]
 	var/dat = "<body>"
-	dat += "<center><h2>[current_species.name] \[<a href='?src=\ref[src];show_species=1'>change</a>\]</h2></center><hr/>"
+	dat += "<center><h2>[current_species.name] \[<a href='byond://?src=\ref[src];show_species=1'>change</a>\]</h2></center><hr/>"
 	dat += "<table padding='8px'>"
 	dat += "<tr>"
 	dat += "<td width = 400>[current_species.blurb]</td>"
@@ -640,11 +640,11 @@ var/global/list/valid_bloodtypes = list("A+", "A-", "B+", "B-", "AB+", "AB-", "O
 
 	if(restricted)
 		if(restricted == 1)
-			dat += "<font color='red'><b>You cannot play as this species.</br><small>If you wish to be whitelisted, you can make an application post on <a href='?src=\ref[user];preference=open_whitelist_forum'>the forums</a>.</small></b></font></br>"
+			dat += "<font color='red'><b>You cannot play as this species.</br><small>If you wish to be whitelisted, you can make an application post on <a href='byond://?src=\ref[user];preference=open_whitelist_forum'>the forums</a>.</small></b></font></br>"
 		else if(restricted == 2)
 			dat += "<font color='red'><b>You cannot play as this species.</br><small>This species is not available as a player race.</small></b></font></br>"
 	if(!restricted || check_rights(R_ADMIN, 0))
-		dat += "\[<a href='?src=\ref[src];set_species=[pref.species_preview]'>select</a>\]"
+		dat += "\[<a href='byond://?src=\ref[src];set_species=[pref.species_preview]'>select</a>\]"
 	dat += "</center></body>"
 
 	user << browse(dat, "window=species;size=700x400")
