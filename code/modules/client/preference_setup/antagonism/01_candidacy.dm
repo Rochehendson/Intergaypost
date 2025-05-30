@@ -39,11 +39,11 @@
 		if(jobban_isbanned(preference_mob(), antag.id) || (antag.id == MODE_MALFUNCTION && jobban_isbanned(preference_mob(), "AI")))
 			. += "<span class='danger'>\[BANNED\]</span><br>"
 		else if(antag.role_type in pref.be_special_role)
-			. += "<span class='linkOn'>High</span> <a href='?src=\ref[src];add_never=[antag.role_type]'>Never</a></br>"
+			. += "<span class='linkOn'>High</span> <a href='byond://?src=\ref[src];add_never=[antag.role_type]'>Never</a></br>"
 		else if(antag.role_type in pref.never_be_special_role)
-			. += "<span class='linkOn'>High</span> <a href='?src=\ref[src];add_never=[antag.role_type]'>Never</a></br>"
+			. += "<span class='linkOn'>High</span> <a href='byond://?src=\ref[src];add_never=[antag.role_type]'>Never</a></br>"
 		else
-			. += "<span class='linkOn'>High</span> <a href='?src=\ref[src];add_never=[antag.role_type]'>Never</a></br>"
+			. += "<span class='linkOn'>High</span> <a href='byond://?src=\ref[src];add_never=[antag.role_type]'>Never</a></br>"
 		. += "</td></tr>"
 
 /*
@@ -57,11 +57,11 @@
 		if(banned_from_ghost_role(preference_mob(), ghost_trap))
 			. += "<span class='danger'>\[BANNED\]</span><br>"
 		else if(ghost_trap.pref_check in pref.be_special_role)
-			. += "<span class='linkOn'>High</span> <a href='?src=\ref[src];del_special=[ghost_trap.pref_check]'>Low</a> <a href='?src=\ref[src];add_never=[ghost_trap.pref_check]'>Never</a></br>"
+			. += "<span class='linkOn'>High</span> <a href='byond://?src=\ref[src];del_special=[ghost_trap.pref_check]'>Low</a> <a href='byond://?src=\ref[src];add_never=[ghost_trap.pref_check]'>Never</a></br>"
 		else if(ghost_trap.pref_check in pref.never_be_special_role)
-			. += "<a href='?src=\ref[src];add_special=[ghost_trap.pref_check]'>High</a> <a href='?src=\ref[src];del_special=[ghost_trap.pref_check]'>Low</a> <span class='linkOn'>Never</span></br>"
+			. += "<a href='byond://?src=\ref[src];add_special=[ghost_trap.pref_check]'>High</a> <a href='byond://?src=\ref[src];del_special=[ghost_trap.pref_check]'>Low</a> <span class='linkOn'>Never</span></br>"
 		else
-			. += "<a href='?src=\ref[src];add_special=[ghost_trap.pref_check]'>High</a> <span class='linkOn'>Low</span> <a href='?src=\ref[src];add_never=[ghost_trap.pref_check]'>Never</a></br>"
+			. += "<a href='byond://?src=\ref[src];add_special=[ghost_trap.pref_check]'>High</a> <span class='linkOn'>Low</span> <a href='byond://?src=\ref[src];add_never=[ghost_trap.pref_check]'>Never</a></br>"
 		. += "</td></tr>"
 */
 	. += "</table>"
