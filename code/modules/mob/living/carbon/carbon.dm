@@ -32,20 +32,18 @@
 	if(!.)
 		return
 
-		if((FAT in src.mutations) && src.m_intent == "run" && src.bodytemperature <= 360)
-			src.bodytemperature += 2
-
-		var/nut_removed = DEFAULT_HUNGER_FACTOR/10
-		var/hyd_removed = DEFAULT_THIRST_FACTOR/10
-		if (src.m_intent == "run")
-			nut_removed *= 2
-			hyd_removed *= 2
-		adjust_nutrition(-nut_removed)
-		adjust_thirst(-hyd_removed)
-
-		// Moving around increases germ_level faster
-		if(germ_level < GERM_LEVEL_MOVE_CAP && prob(8))
-			germ_level++
+	if((FAT in src.mutations) && src.m_intent == "run" && src.bodytemperature <= 360)
+		src.bodytemperature += 2
+	var/nut_removed = DEFAULT_HUNGER_FACTOR/10
+	var/hyd_removed = DEFAULT_THIRST_FACTOR/10
+	if (src.m_intent == "run")
+		nut_removed *= 2
+		hyd_removed *= 2
+	adjust_nutrition(-nut_removed)
+	adjust_thirst(-hyd_removed)
+	// Moving around increases germ_level faster
+	if(germ_level < GERM_LEVEL_MOVE_CAP && prob(8))
+		germ_level++
 
 /mob/living/carbon/relaymove(var/mob/living/user, direction)
 	if((user in contents) && istype(user))

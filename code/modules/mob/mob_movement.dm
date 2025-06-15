@@ -550,10 +550,8 @@
 		return 0
 	if(Check_Shoegrip())
 		return 0
-	return prob_slip
-
 	prob_slip = round(prob_slip)
-	return(prob_slip)
+	return prob_slip
 
 /mob/proc/mob_has_gravity(turf/T)
 	return has_gravity(src, T)
