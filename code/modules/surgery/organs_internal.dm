@@ -436,7 +436,7 @@
 
 	target.op_stage.current_organ = null
 
-	var/obj/item/organ/internal/list/dead_organs = list()
+	var/list/obj/item/organ/internal/dead_organs = list()
 	for(var/obj/item/organ/internal/I in target.internal_organs)
 		if(I && !(I.status & ORGAN_CUT_AWAY) && I.status & ORGAN_DEAD && I.parent_organ == affected.organ_tag && !(I.robotic >= ORGAN_ROBOT))
 			dead_organs |= I
