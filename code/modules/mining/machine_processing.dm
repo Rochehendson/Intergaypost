@@ -151,7 +151,7 @@
 		var/obj/item/weapon/ore/O = locate() in input.loc
 		if(!O) break
 		if(O.ore && !isnull(ores_stored[O.ore.name]))
-			ores_stored[O.ore.name]++
+			LAZYLEN(ores_stored[O.ore.name])++
 		else
 			world.log << "[src] encountered ore [O] with oretag [O.ore ? O.ore : "(no ore)"] which this machine did not have an entry for!"
 
@@ -229,11 +229,11 @@
 					continue
 
 				for(var/i=0,i<can_make,i++)
-					ores_stored[metal]--
+					LAZYLEN(ores_stored[metal])--
 					sheets++
 					new M.stack_type(output.loc)
 			else
-				ores_stored[metal]--
+				LAZYLEN(ores_stored[metal])--
 				sheets++
 				new /obj/item/weapon/ore/slag(output.loc)
 		else

@@ -94,16 +94,18 @@ proc/generate_random_prayer()//This generates a new one.
 /mob/living/proc/reveal_heretics()
 	var/msg = " is one of them!"
 	var/name = ""
+	var/datum/religion/rel = GLOB.all_religions[ILLEGAL_RELIGION]
 	if (religion_is_legal())  //Non-heretics will say nothing
 		msg = "I don't know anything!"
 		say(NewStutter(msg))
 		return
 	else
-		name = pick(GLOB.all_religions[ILLEGAL_RELIGION].followers)  //Wow the datums saves us an entire for loop
-		if(name)
-			say(NewStutter("[name] is one of them!"))
-		else
-			say("I'm the only one!")
+		if(rel)
+			name = pick(rel.followers)
+			if(name)
+				say(NewStutter("[name] is one of them!"))
+			else
+				say("I'm the only one!")
 
 /* ILLEGAL RELIGION PROCS */
 /datum/religion/proc/claim_territory(area/territory,var/claiming_religion)
@@ -226,11 +228,9 @@ proc/generate_random_prayer()//This generates a new one.
 			to_chat(src, "<span class='notice'>Your prayer is interrupted.</span>")
 			doing_something = 0
 			return
-		return 0
 	else
 		to_chat(src, "<span class='notice'>You are already doing something.</span>")
 		return 0
-	return 0
 
 
 /mob/living/proc/make_shrine()
