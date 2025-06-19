@@ -56,7 +56,7 @@
 					playsound(loc, I.hitsound, 50, 1, -1)
 					take_damage(W.force,user)
 
-/obj/old_god_shrine/proc/take_damage(var/force, var/mob/living/user/attacker)
+/obj/old_god_shrine/proc/take_damage(var/force)
 	playsound(src.loc, pick(sounds), 100, 1)
 	//prob(25) gives an average of 1-2 hits
 	if (force >= toughness && prob(75))
