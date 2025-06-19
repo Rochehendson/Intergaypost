@@ -706,11 +706,11 @@ var/global/datum/controller/occupations/job_master
 
 	proc/SetCombatMusic(var/mob/living/carbon/human/H, var/rank)
 		switch(rank)
-			if("Captain" || "Executive Officer")
+			if("Captain", "Executive Officer")
 				H.combat_music = GLOB.command_combat_music
-			if("Major" || "Enforcer")
+			if("Major", "Enforcer")
 				H.combat_music = GLOB.security_combat_music
-			if("Supreme Arbiter" || "Arbiter")
+			if("Supreme Arbiter", "Arbiter")
 				H.combat_music = GLOB.religion_combat_music
 			if("Jester")
 				H.combat_music = GLOB.jester_combat_music
