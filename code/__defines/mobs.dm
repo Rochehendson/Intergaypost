@@ -217,8 +217,6 @@
 #define BP_VOICE		"vocal synthesiser"
 #define BP_STACK		"stack"
 #define BP_OPTICS		"optics"
-#define BP_VCHORDS  "vocal chords"
-#define BP_TONGUE	"tongue"
 
 // Limbs.
 #define BP_L_FOOT "l_foot"
