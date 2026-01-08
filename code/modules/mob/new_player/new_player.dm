@@ -38,7 +38,7 @@
 		updatePig()
 
 		if(GAME_STATE <= RUNLEVEL_LOBBY)
-			stat("Time To Start:", "[round(SSticker.pregame_timeleft/10)][SSticker.round_progressing ? "" : " (DELAYED)"]")
+			stat("Time To Start:", "[floor(SSticker.pregame_timeleft/10)][SSticker.round_progressing ? "" : " (DELAYED)"]")
 			stat("Players: [totalPlayers]", "Players Ready: [totalPlayersReady]")
 			totalPlayers = 0
 			totalPlayersReady = 0

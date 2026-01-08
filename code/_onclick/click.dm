@@ -209,7 +209,7 @@
 */
 /mob/proc/RangedAttack(var/atom/A, var/params)
 	if(!mutations.len) return
-	if((LASER in mutations) && a_intent == I_HURT)
+	if((LASEREYE in mutations) && a_intent == I_HURT)
 		LaserEyes(A) // moved into a proc below
 	else if(TK in mutations)
 		setClickCooldown(DEFAULT_ATTACK_COOLDOWN)

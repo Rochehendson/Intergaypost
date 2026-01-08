@@ -7,7 +7,6 @@
  */
 
 #define FAILURE 0
-#define SUCCESS 1
 
 
 /datum/unit_test/apc_area_test
