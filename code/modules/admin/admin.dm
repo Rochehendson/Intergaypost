@@ -634,7 +634,8 @@ var/global/floorIsLava = 0
 	if(!check_rights(0))	return
 
 	var/dat = {"
-		<center><B>Game Panel</B></center><hr>\n
+		<html><body>
+		\n<center><B>Game Panel</B></center><hr>\n
 		<a href='byond://?src=\ref[src];c_mode=1'>Change Game Mode</A><br>
 		"}
 	if(SSticker.master_mode == "secret")
@@ -649,9 +650,11 @@ var/global/floorIsLava = 0
 		<br><a href='byond://?src=\ref[src];vsc=airflow'>Edit Airflow Settings</A><br>
 		<a href='byond://?src=\ref[src];vsc=phoron'>Edit Phoron Settings</A><br>
 		<a href='byond://?src=\ref[src];vsc=default'>Choose a default ZAS setting</A><br>
+
+		</body></html>
 		"}
 
-	usr << browse(dat, "window=admin2;size=210x280")
+	show_browser(usr, dat, "window=admin2;size=210x280")
 	return
 
 /datum/admins/proc/Secrets(var/datum/admin_secret_category/active_category = null)
