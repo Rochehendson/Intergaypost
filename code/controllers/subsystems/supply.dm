@@ -146,7 +146,8 @@ SUBSYSTEM_DEF(supply)
 			return 1
 	// Sell Requests
 	for(var/key in sell_order_list) //for every request
-		if(sell_order_list[key].add_item(A))
+		var/datum/sell_order/SO = sell_order_list[key]
+		if(SO.add_item(A))
 			return 1
 
 	// Must sell ore detector disks
