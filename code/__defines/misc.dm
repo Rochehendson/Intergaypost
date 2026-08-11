@@ -1,4 +1,8 @@
 #define DEBUG
+
+#define SUCCESS 1
+#define FAILURE 0
+
 // Turf-only flags.
 #define TURF_FLAG_NOJAUNT 1 // This is used in literally one place, turf.dm, to block ethereal jaunt.
 #define TURF_FLAG_NORUINS 2

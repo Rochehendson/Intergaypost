@@ -9,12 +9,6 @@
 // - Matt 																//
 //////////////////////////////////////////////////////////////////////////
 
-//defines
-#define CRIT_SUCCESS_NORM 1
-#define CRIT_FAILURE_NORM 1
-#define CRIT_SUCCESS 2
-#define CRIT_FAILURE 3
-
 
 
 /mob
