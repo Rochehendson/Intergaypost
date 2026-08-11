@@ -528,7 +528,7 @@ var/list/rank_prefix = list(\
 
 			var/datum/computer_file/crew_record/R = get_crewmember_record(perpname)
 			if(R)
-				var/setcriminal = input(usr, "Specify a new criminal status for this person.", "Security HUD", R.get_criminalStatus()) in GLOB.security_statuses as null|text
+				var/setcriminal = input(usr, "Specify a new criminal status for this person.", "Security HUD", R.get_criminalStatus()) as null|anything in GLOB.security_statuses
 				if(hasHUD(usr, "security") && setcriminal)
 					R.set_criminalStatus(setcriminal)
 					modified = 1
@@ -583,7 +583,7 @@ var/list/rank_prefix = list(\
 
 			var/datum/computer_file/crew_record/E = get_crewmember_record(perpname)
 			if(E)
-				var/setmedical = input(usr, "Specify a new medical status for this person.", "Medical HUD", E.get_status()) in GLOB.physical_statuses as null|text
+				var/setmedical = input(usr, "Specify a new medical status for this person.", "Medical HUD", E.get_status()) as null|anything in GLOB.physical_statuses
 				if(hasHUD(usr,"medical") && setmedical)
 					E.set_status(setmedical)
 					modified = 1

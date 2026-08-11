@@ -1,9 +1,6 @@
 	////////////
 	//SECURITY//
 	////////////
-#define UPLOAD_LIMIT		5242880	//Restricts client uploads to the server to 5MB //Boosted this thing. What's the worst that can happen?
-#define MIN_CLIENT_VERSION	0		//Just an ambiguously low version for now, I don't want to suddenly stop people playing.
-									//I would just like the code ready should it ever need to be used.
 
 //#define TOPIC_DEBUGGING 1
 
@@ -327,10 +324,6 @@
 	var/DBQuery/query_accesslog = dbcon.NewQuery("INSERT INTO `erro_connection_log`(`id`,`datetime`,`serverip`,`ckey`,`ip`,`computerid`) VALUES(null,Now(),'[serverip]','[sql_ckey]','[sql_ip]','[sql_computerid]');")
 	query_accesslog.Execute()
 
-
-#undef TOPIC_SPAM_DELAY
-#undef UPLOAD_LIMIT
-#undef MIN_CLIENT_VERSION
 
 //checks if a client is afk
 //3000 frames = 5 minutes

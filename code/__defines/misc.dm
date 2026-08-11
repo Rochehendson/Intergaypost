@@ -1,4 +1,8 @@
 #define DEBUG
+
+#define SUCCESS 1
+#define FAILURE 0
+
 // Turf-only flags.
 #define TURF_FLAG_NOJAUNT 1 // This is used in literally one place, turf.dm, to block ethereal jaunt.
 #define TURF_FLAG_NORUINS 2
@@ -154,7 +158,6 @@
 #define PROGRAM_STATE_BACKGROUND 1
 #define PROGRAM_STATE_ACTIVE 2
 
-#define SUCCESS 1 //used for stolen grab code from is12
 
 // Caps for NTNet logging. Less than 10 would make logging useless anyway, more than 500 may make the log browser too laggy. Defaults to 100 unless user changes it.
 #define MAX_NTNET_LOGS 500

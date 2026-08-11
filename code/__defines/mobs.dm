@@ -3,6 +3,11 @@
 #define UNCONSCIOUS 1
 #define DEAD        2
 
+// Job preference alternate options
+#define GET_RANDOM_JOB  0
+#define BE_ASSISTANT    1
+#define RETURN_TO_LOBBY 2
+
 // Bitflags defining which status effects could be or are inflicted on a mob.
 #define CANSTUN     0x1
 #define CANWEAKEN   0x2
