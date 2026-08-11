@@ -45,6 +45,12 @@
 #define INIT_ORDER_AIR -1
 #define INIT_ORDER_MINIMAP -2
 #define INIT_ORDER_ASSETS -3
+// Amount of time(ds) MAX to send per asset, if this get exceeded we cancel the sleeping.
+#define ASSET_CACHE_SEND_TIMEOUT 7
+// When sending mutiple assets, how many before we give the client a quaint little sending resources message
+#define ASSET_CACHE_TELL_CLIENT_AMOUNT 8
+// When passively preloading assets, how many to send at once?
+#define ASSET_CACHE_PRELOAD_CONCURRENT 3
 #define INIT_ORDER_ICON_SMOOTHING -5
 #define INIT_ORDER_OVERLAY -6
 #define INIT_ORDER_XKEYSCORE -10
