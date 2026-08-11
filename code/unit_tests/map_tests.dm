@@ -6,8 +6,6 @@
  *
  */
 
-#define FAILURE 0
-
 
 /datum/unit_test/apc_area_test
 	name = "MAP: Area Test APC / Scrubbers / Vents"

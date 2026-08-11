@@ -230,6 +230,7 @@
 			set_picture(signal.data["picture_state"])
 	update()
 
-#undef FONT_COLOR
-#undef FONT_STYLE
+#undef STATUS_DISPLAY_FONT_SIZE
+#undef STATUS_DISPLAY_FONT_COLOR
+#undef STATUS_DISPLAY_FONT_STYLE
 #undef SCROLL_SPEED
