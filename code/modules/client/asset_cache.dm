@@ -143,7 +143,7 @@ You can set verify to TRUE if you want send() to sleep until the client has the 
 /datum/asset/simple/craft/register()
 	for(var/name in SScraft.categories)
 		for(var/datum/crafting_recipe/CR in SScraft.categories[name])
-			if(CR.result)
+			if(CR.result && CR.result.len)
 				var/filename = sanitizeFileName("[CR.result[1]].png")
 				var/icon/I = getFlatTypeIcon(CR.result[1])
 				register_asset(filename, I)
