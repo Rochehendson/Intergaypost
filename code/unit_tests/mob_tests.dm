@@ -9,9 +9,6 @@
  *
  */
 
-#define SUCCESS 1
-#define FAILURE 0
-
 //
 // Tests Life() and mob breathing in space.
 //
@@ -291,8 +288,6 @@ datum/unit_test/robot_module_icons/start_test()
 
 #undef EXTRA_VULNERABLE
 #undef IMMUNE
-#undef SUCCESS
-#undef FAILURE
 
 datum/unit_test/species_base_skin
 	name = "MOB: Species base skin presence"

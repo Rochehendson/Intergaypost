@@ -515,6 +515,3 @@ datum/unit_test/ladder_check/start_test()
 	else
 		pass("No station pipes are leaking")
 	return 1
-
-#undef SUCCESS
-#undef FAILURE
