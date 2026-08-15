@@ -11,11 +11,9 @@
 	var/faction = "None"                //Antag faction/general associated faction.
 	var/religion = "Atheism"               //Religious association.
 	var/family = TRUE
-/*
 /datum/category_item/player_setup_item/general/background
-	name = "Religion"
+	name = "Background"
 	sort_order = 5
-*/
 /datum/category_item/player_setup_item/general/background/load_character(var/savefile/S)
 	from_file(S["med_record"],pref.med_record)
 	from_file(S["sec_record"],pref.sec_record)
@@ -68,6 +66,26 @@
 		. += "<a href='byond://?src=\ref[src];set_security_records=1'>[TextPreview(pref.sec_record,40)]</a><br>"
 		. += "Memory:<br>"
 		. += "<a href='byond://?src=\ref[src];set_memory=1'>[TextPreview(pref.memory,40)]</a><br>"
+
+/datum/category_item/player_setup_item/general/background/get_data(var/mob/user)
+	return list(
+		"ref" = "\ref[src]",
+		"company_name" = GLOB.using_map.company_name,
+		"nt_relation" = pref.nanotrasen_relation,
+		"home_system" = pref.home_system,
+		"citizenship" = pref.citizenship,
+		"faction" = pref.faction,
+		"religion" = pref.religion,
+		"has_records_ban" = jobban_isbanned(user, "Records") ? 1 : 0,
+		"med_record" = pref.med_record ? pref.med_record : "",
+		"med_record_preview" = pref.med_record ? TextPreview(pref.med_record, 40) : "None",
+		"gen_record" = pref.gen_record ? pref.gen_record : "",
+		"gen_record_preview" = pref.gen_record ? TextPreview(pref.gen_record, 40) : "None",
+		"sec_record" = pref.sec_record ? pref.sec_record : "",
+		"sec_record_preview" = pref.sec_record ? TextPreview(pref.sec_record, 40) : "None",
+		"memory" = pref.memory ? pref.memory : "",
+		"memory_preview" = pref.memory ? TextPreview(pref.memory, 40) : "None"
+	)
 
 /datum/category_item/player_setup_item/general/background/OnTopic(var/href,var/list/href_list, var/mob/user)
 	if(href_list["nt_relation"])

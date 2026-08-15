@@ -50,13 +50,22 @@
 	if(!pref.uplink_sources.len)
 		. += "<span class='warning'>You will not receive an uplink unless you add an uplink source!</span>"
 	. +="<br>"
-/*
-	. +="Exploitable information:<br>"
-	if(jobban_isbanned(user, "Records"))
-		. += "<b>You are banned from using character records.</b><br>"
-	else
-		. +="<a href='byond://?src=\ref[src];exploitable_record=1'>[TextPreview(pref.exploit_record,40)]</a><br>"
-*/
+
+/datum/category_item/player_setup_item/antagonism/basic/get_data(var/mob/user)
+	var/list/sources_list = list()
+	for(var/entry in pref.uplink_sources)
+		var/decl/uplink_source/US = entry
+		sources_list += list(list(
+			"name" = US.name,
+			"desc" = US.desc,
+			"ref" = "\ref[US]"
+		))
+
+	return list(
+		"ref" = "\ref[src]",
+		"uplink_sources" = sources_list,
+		"has_sources" = (sources_list.len > 0) ? 1 : 0
+	)
 
 /datum/category_item/player_setup_item/antagonism/basic/OnTopic(var/href,var/list/href_list, var/mob/user)
 	if(href_list["add_source"])

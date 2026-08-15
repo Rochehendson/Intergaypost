@@ -67,6 +67,32 @@
 	. += "</table>"
 	. = jointext(.,null)
 
+/datum/category_item/player_setup_item/antagonism/candidacy/get_data(var/mob/user)
+	var/list/antags_list = list()
+	var/list/all_antag_types = GLOB.all_antag_types_
+	for(var/antag_type in all_antag_types)
+		var/datum/antagonist/antag = all_antag_types[antag_type]
+		var/banned = (jobban_isbanned(preference_mob(), antag.id) || (antag.id == MODE_MALFUNCTION && jobban_isbanned(preference_mob(), "AI"))) ? 1 : 0
+		var/status = "Never"
+		if(antag.role_type in pref.be_special_role)
+			status = "High"
+		else if(antag.role_type in pref.never_be_special_role)
+			status = "Never"
+		else
+			status = "Low"
+
+		antags_list += list(list(
+			"name" = antag.role_text,
+			"role_type" = antag.role_type,
+			"banned" = banned,
+			"status" = status
+		))
+
+	return list(
+		"ref" = "\ref[src]",
+		"special_roles" = antags_list
+	)
+
 /datum/category_item/player_setup_item/proc/banned_from_ghost_role(var/mob, var/datum/ghosttrap/ghost_trap)
 	for(var/ban_type in ghost_trap.ban_checks)
 		if(jobban_isbanned(mob, ban_type))

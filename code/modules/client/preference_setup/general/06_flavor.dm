@@ -2,10 +2,9 @@
 	var/list/flavor_texts        = list()
 	var/list/flavour_texts_robot = list()
 
-/*/datum/category_item/player_setup_item/general/flavor
+/datum/category_item/player_setup_item/general/flavor
 	name = "Flavor"
 	sort_order = 6
-*/
 /datum/category_item/player_setup_item/general/flavor/load_character(var/savefile/S)
 	S["flavor_texts_general"]	>> pref.flavor_texts["general"]
 	S["flavor_texts_head"]		>> pref.flavor_texts["head"]
@@ -45,6 +44,13 @@
 	. += "<b>Flavor:</b><br>"
 	. += "<a href='byond://?src=\ref[src];flavor_text=open'>Set Flavor Text</a><br/>"
 	. += "<a href='byond://?src=\ref[src];flavour_text_robot=open'>Set Robot Flavor Text</a><br/>"
+
+/datum/category_item/player_setup_item/general/flavor/get_data(var/mob/user)
+	return list(
+		"ref" = "\ref[src]",
+		"flavor_general" = pref.flavor_texts["general"] ? TextPreview(pref.flavor_texts["general"], 50) : "None",
+		"flavor_robot" = pref.flavour_texts_robot["Default"] ? TextPreview(pref.flavour_texts_robot["Default"], 50) : "None"
+	)
 
 /datum/category_item/player_setup_item/general/flavor/OnTopic(var/href,var/list/href_list, var/mob/user)
 	if(href_list["flavor_text"])

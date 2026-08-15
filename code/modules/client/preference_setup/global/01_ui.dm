@@ -45,6 +45,15 @@
 			. += "<a href='byond://?src=\ref[src];select_ooc_color=1'><b>[pref.ooccolor]</b></a> <table style='display:inline;' bgcolor='[pref.ooccolor]'><tr><td>__</td></tr></table>�<a href='byond://?src=\ref[src];reset=ooc'>reset</a><br>"
 	. += "<b>Client FPS:</b> <a href='byond://?src=\ref[src];select_fps=1'><b>[pref.clientfps]</b></a><br>"
 
+/datum/category_item/player_setup_item/player_global/ui/get_data(var/mob/user)
+	return list(
+		"ref" = "\ref[src]",
+		"fps" = pref.clientfps,
+		"ooc_color" = pref.ooccolor,
+		"is_default_ooc" = (pref.ooccolor == initial(pref.ooccolor)) ? 1 : 0,
+		"can_ooc_color" = can_select_ooc_color(user) ? 1 : 0
+	)
+
 /datum/category_item/player_setup_item/player_global/ui/OnTopic(var/href,var/list/href_list, var/mob/user)
 	if(href_list["select_style"])
 		var/UI_style_new = input(user, "Choose UI style.", CHARACTER_PREFERENCE_INPUT_TITLE, pref.UI_style) as null|anything in all_ui_styles

@@ -1300,6 +1300,7 @@
 #include "code\modules\client\preference_setup\antagonism\01_candidacy.dm"
 #include "code\modules\client\preference_setup\antagonism\02_setup.dm"
 #include "code\modules\client\preference_setup\general\01_basic.dm"
+#include "code\modules\client\preference_setup\general\02_language.dm"
 #include "code\modules\client\preference_setup\general\03_body.dm"
 #include "code\modules\client\preference_setup\general\04_equipment.dm"
 #include "code\modules\client\preference_setup\general\05_background.dm"
