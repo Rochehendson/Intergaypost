@@ -487,3 +487,40 @@ proc/TextPreview(var/string,var/len=40)
 	text = replacetext(text, ";", "")
 	text = replacetext(text, "&", "")
 	return text
+
+/**
+ * Gets a color for a name, will return the same color for a given string consistently within a round.
+ * Produces pastel-ish colors using HSL colorspace.
+ */
+/proc/colorize_string(name, sat_shift = 1, lum_shift = 1)
+	var/static/rseed = rand(1, 26)
+
+	var/hash = copytext(md5("[name][rseed]"), 1, 7)
+	var/h = hex2num(copytext(hash, 1, 3)) * (360 / 255)
+	var/s = (hex2num(copytext(hash, 3, 5)) >> 2) * ((CM_COLOR_SAT_MAX - CM_COLOR_SAT_MIN) / 63) + CM_COLOR_SAT_MIN
+	var/l = (hex2num(copytext(hash, 5, 7)) >> 2) * ((CM_COLOR_LUM_MAX - CM_COLOR_LUM_MIN) / 63) + CM_COLOR_LUM_MIN
+
+	s = clamp(s * sat_shift, 0, 1)
+	l = clamp(l * lum_shift, 0, 1)
+
+	var/h_int = round(h / 60)
+	var/c = (1 - abs(2 * l - 1)) * s
+	var/x = c * (1 - abs((h / 60) % 2 - 1))
+	var/m = l - c * 0.5
+	x = round((x + m) * 255)
+	c = round((c + m) * 255)
+	m = round(m * 255)
+	switch(h_int)
+		if(0)
+			return "#[num2hex(c, 2)][num2hex(x, 2)][num2hex(m, 2)]"
+		if(1)
+			return "#[num2hex(x, 2)][num2hex(c, 2)][num2hex(m, 2)]"
+		if(2)
+			return "#[num2hex(m, 2)][num2hex(c, 2)][num2hex(x, 2)]"
+		if(3)
+			return "#[num2hex(m, 2)][num2hex(x, 2)][num2hex(c, 2)]"
+		if(4)
+			return "#[num2hex(x, 2)][num2hex(m, 2)][num2hex(c, 2)]"
+		if(5)
+			return "#[num2hex(c, 2)][num2hex(m, 2)][num2hex(x, 2)]"
+	return "#[num2hex(c, 2)][num2hex(x, 2)][num2hex(m, 2)]"

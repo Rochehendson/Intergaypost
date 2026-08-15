@@ -96,13 +96,13 @@ proc/get_radio_key_from_channel(var/channel)
 //Takes a list of the form list(message, verb, whispering) and modifies it as needed
 //Returns 1 if a speech problem was applied, 0 otherwise
 /mob/living/proc/handle_speech_problems(var/list/message_data)
-	var/message = rhtml_decode(message_data[1])
+	var/message = message_data[1]
 	var/verb = message_data[2]
 
 	. = 0
 
 	if((HULK in mutations) && health >= 25 && length(message))
-		message = "[ruppertext(message)]!!!"
+		message = "[uppertext(message)]!!!"
 		verb = pick("yells","roars","hollers")
 		message_data[3] = 0
 		. = 1
@@ -119,7 +119,7 @@ proc/get_radio_key_from_channel(var/channel)
 		verb = pick("tries to talk","mumbles")
 		. = 1
 
-	message_data[1] = russian_to_cp1251(message)
+	message_data[1] = message
 	message_data[2] = verb
 
 /mob/living/proc/handle_message_mode(message_mode, message, verb, speaking, used_radios, alt_name)
@@ -302,8 +302,16 @@ proc/get_radio_key_from_channel(var/channel)
 		get_mobs_and_objs_in_view_fast(T, message_range, listening, listening_obj, /datum/client_preference/ghost_ears)
 
 
-	var/speech_bubble_test = say_test(message)
-	var/image/speech_bubble = image('icons/mob/talk.dmi',src,"h[speech_bubble_test]")
+	var/speech_bubble_state = check_speech_punctuation_state(message)
+	var/speech_state_modifier = get_speech_bubble_state_modifier()
+	if(speech_bubble_state && speech_state_modifier)
+		speech_bubble_state = "[speech_state_modifier]_[speech_bubble_state]"
+
+	var/image/speech_bubble
+	if(speech_bubble_state)
+		speech_bubble = image('icons/mob/talk.dmi', src, speech_bubble_state)
+		speech_bubble.layer = layer
+		speech_bubble.plane = plane
 
 /*
 	for (var/atom/movable/AM in get_above_oo())

@@ -205,3 +205,8 @@
 	var/emote_cd = 0//Emote cooldown.
 
 	var/last_pull_sound = 0
+
+	/// If this mob is or was piloted by a player with typing indicators enabled, an instance of one.
+	var/atom/movable/overlay/typing_indicator/typing_indicator
+	/// Whether this mob is currently typing, if piloted by a player.
+	var/is_typing
