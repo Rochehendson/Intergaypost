@@ -17,13 +17,19 @@
 	index_all_personal_lockers()
 	return 1
 
-/proc/find_personal_locker_for(var/mob/living/carbon/human/H)
-	if(!istype(H) || !H.ckey)
+/proc/find_personal_locker_for(var/mob/living/carbon/human/H, var/player_ckey, var/player_name)
+	if(!istype(H))
+		return null
+	if(!player_ckey)
+		player_ckey = H.ckey || (H.mind ? H.mind.ckey : null) || (H.client ? H.client.ckey : null)
+	if(!player_name)
+		player_name = H.real_name || (H.mind ? H.mind.name : null) || H.name
+	if(!player_ckey || !player_name)
 		return null
 
 	// First check if already assigned to this player and character
 	for(var/obj/structure/closet/secure_closet/personal_locker/L in GLOB.all_personal_lockers)
-		if(L.registered_ckey == H.ckey && L.registered_name == H.real_name)
+		if(L.registered_ckey == player_ckey && L.registered_name == player_name)
 			return L
 
 	// Next find an unassigned locker
@@ -34,42 +40,58 @@
 	return null
 
 /proc/assign_personal_locker(var/mob/living/carbon/human/H)
-	if(!istype(H) || !H.ckey || !H.real_name)
+	if(!istype(H))
+		return null
+
+	var/player_ckey = H.ckey || (H.mind ? H.mind.ckey : null) || (H.client ? H.client.ckey : null)
+	var/player_name = H.real_name || (H.mind ? H.mind.name : null) || H.name
+	if(!player_ckey || !player_name)
 		return null
 
 	index_all_personal_lockers()
 
-	var/obj/structure/closet/secure_closet/personal_locker/L = find_personal_locker_for(H)
+	var/obj/structure/closet/secure_closet/personal_locker/L = find_personal_locker_for(H, player_ckey, player_name)
 	if(!L)
-		log_game("No free personal locker found for [H.name] ([H.ckey])")
+		log_game("No free personal locker found for [player_name] ([player_ckey])")
 		to_chat(H, "<span class='info'><b>Personal Storage:</b> No unassigned personal lockers are currently available on the station.</span>")
 		return null
 
-	var/already_registered = (L.registered_ckey == H.ckey && L.registered_name == H.real_name)
-	L.registered_ckey = H.ckey
-	L.registered_name = H.real_name
+	var/already_registered = (L.registered_ckey == player_ckey && L.registered_name == player_name)
+	L.registered_ckey = player_ckey
+	L.registered_name = player_name
 	L.update_locker_name()
 
 	if(!already_registered)
-		load_personal_locker_data(L, H.ckey, H.real_name)
+		load_personal_locker_data(L, player_ckey, player_name)
 
 	// Create and give the physical locker key
-	var/obj/item/weapon/key/locker_key/K = new /obj/item/weapon/key/locker_key(null, L.lock_code, L.locker_number, H.real_name, H.ckey)
-	var/given = FALSE
+	var/obj/item/weapon/key/locker_key/K = new /obj/item/weapon/key/locker_key(null, L.lock_code, L.locker_number, player_name, player_ckey)
+	var/placement_msg = "in your inventory"
 
-	if(H.equip_to_slot_if_possible(K, slot_r_store))
-		given = TRUE
-	else if(H.equip_to_slot_if_possible(K, slot_l_store))
-		given = TRUE
+	// 1. Try pockets
+	if(H.equip_to_slot_if_possible(K, slot_r_store, disable_warning = 1))
+		placement_msg = "in your pocket"
+	else if(H.equip_to_slot_if_possible(K, slot_l_store, disable_warning = 1))
+		placement_msg = "in your pocket"
+	// 2. Try hands
 	else if(H.put_in_hands(K))
-		given = TRUE
-	else if(istype(H.back, /obj/item/weapon/storage))
-		var/obj/item/weapon/storage/S = H.back
-		if(S.handle_item_insertion(K, prevent_warning = 1, NoUpdate = 1))
-			given = TRUE
-
-	if(!given)
+		placement_msg = "in your hand"
+	// 3. Try neck / amulet slot
+	else if(H.equip_to_slot_if_possible(K, slot_wear_amulet, disable_warning = 1))
+		placement_msg = "around your neck"
+	else if(H.equip_to_slot_if_possible(K, slot_tie, disable_warning = 1))
+		placement_msg = "attached to your uniform"
+	// 4. Try storage (backpack, belt, suit storage)
+	else if(istype(H.back, /obj/item/weapon/storage) && H.back.handle_item_insertion(K, prevent_warning = 1, NoUpdate = 1))
+		placement_msg = "in your backpack"
+	else if(istype(H.belt, /obj/item/weapon/storage) && H.belt.handle_item_insertion(K, prevent_warning = 1, NoUpdate = 1))
+		placement_msg = "in your belt storage"
+	else if(istype(H.s_store, /obj/item/weapon/storage) && H.s_store.handle_item_insertion(K, prevent_warning = 1, NoUpdate = 1))
+		placement_msg = "in your suit storage"
+	// 5. Fallback: on the floor
+	else
 		K.forceMove(get_turf(H))
+		placement_msg = "on the floor at your feet"
 
-	to_chat(H, "<span class='notice'><b>Personal Storage:</b> You have been assigned personal locker #[L.locker_number]. Your locker key has been placed in your inventory.</span>")
+	to_chat(H, "<span class='notice'><b>Personal Storage:</b> You have been assigned personal locker #[L.locker_number]. Your locker key has been placed [placement_msg].</span>")
 	return L

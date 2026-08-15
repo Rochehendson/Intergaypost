@@ -4,7 +4,7 @@
 	icon = 'icons/obj/items.dmi'
 	icon_state = "keys"
 	w_class = ITEM_SIZE_TINY
-	slot_flags = SLOT_POCKET
+	slot_flags = SLOT_POCKET | SLOT_AMULET | SLOT_TIE
 	var/owner_ckey = null
 	var/owner_name = null
 	var/locker_tag = null
