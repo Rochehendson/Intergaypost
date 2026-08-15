@@ -142,8 +142,7 @@
 	for(var/i=1, i<=length(text), i++)
 		switch(text2ascii(text,i))
 			if(62,60,92,47)	return			//rejects the text if it contains these bad characters: <, >, \ or /
-			if(127 to 255)	return			//rejects weird letters like �
-			if(0 to 31)		return			//more weird stuff
+			if(0 to 31)		return			//control characters
 			if(32)			continue		//whitespace
 			else			non_whitespace = 1
 	if(non_whitespace)		return text		//only accepts the text if it has some non-spaces
