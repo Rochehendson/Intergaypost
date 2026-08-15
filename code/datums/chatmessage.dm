@@ -64,6 +64,13 @@
  * Generates a chat message image representation
  */
 /datum/chatmessage/proc/generate_image(text, atom/target, mob/owner, datum/language/language, list/extra_classes, lifespan)
+	// Clean up any legacy &#255;, &#1103;, &yuml;, or ÿ to UTF-8
+	text = replacetext(text, ("&" + "#255;"), "я")
+	text = replacetext(text, ("&" + "#1103;"), "я")
+	text = replacetext(text, "&yuml;", "я")
+	text = replacetext(text, "ÿ", "я")
+	text = replacetext(text, ascii2text(255), "я")
+
 	// Strip HTML tags from text
 	var/static/regex/html_strip = regex("<\[^>\]*>", "gi")
 	text = html_strip.Replace(text, "")
