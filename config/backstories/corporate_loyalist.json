@@ -1,0 +1,11 @@
+{
+  "id": "corporate_loyalist",
+  "name": "Corporate Loyalist",
+  "category": "Corporate",
+  "desc": "A disciplined worker raised within company arcologies, dedicated to corporate hierarchy and efficiency.",
+  "fluff": "Born into corporate housing and educated through company-sponsored programs, you view hierarchy, protocols, and efficiency as second nature. The Corporation provides safety, purpose, and livelihood.",
+  "suggested_faction": "TetraCorp",
+  "suggested_home_system": "Sol",
+  "suggested_citizenship": "TetraCorp Citizen",
+  "suggested_records": "Employee in good standing. Clean record and strict compliance with corporate bylaws."
+}

@@ -237,6 +237,20 @@
 				<div class="charsetup-section">
 					<div class="charsetup-section-title">Background & Records</div>
 					<div class="item">
+						<div class="itemLabel">Backstory:</div>
+						<div class="itemContent">
+							{{:helper.link(data.general.background.backstory_name, 'script', {'item': data.general.background.ref, 'select_backstory': 1})}}
+							{{if data.general.background.backstory_desc || data.general.background.backstory_fluff}}
+								<div class="charsetup-backstory-box">
+									<div><span class="highlight">[{{:data.general.background.backstory_category}}]</span> <b>{{:data.general.background.backstory_desc}}</b></div>
+									{{if data.general.background.backstory_fluff}}
+										<div class="charsetup-backstory-fluff">{{:data.general.background.backstory_fluff}}</div>
+									{{/if}}
+								</div>
+							{{/if}}
+						</div>
+					</div>
+					<div class="item">
 						<div class="itemLabel">{{:data.general.background.company_name}} Relation:</div>
 						<div class="itemContent">
 							{{:helper.link(data.general.background.nt_relation, null, {'item': data.general.background.ref, 'nt_relation': 1})}}
@@ -562,6 +576,7 @@
 				<div><b>Species:</b> {{:data.general.body.species}}</div>
 				<div><b>Gender:</b> {{:data.general.basic.gender_text}}</div>
 				<div><b>Age:</b> {{:data.general.basic.age}}</div>
+				<div><b>Backstory:</b> {{:data.general.background.backstory_name}}</div>
 			</div>
 			<div class="charsetup-preview-actions">
 				{{:helper.link('Randomize Appearance', 'refresh', {'item': data.general.body.ref, 'random': 1})}}

@@ -304,6 +304,7 @@
 	character.citizenship = citizenship
 	character.personal_faction = faction
 	character.religion = religion
+	character.backstory = backstory
 
 	if(!character.isSynthetic())
 		character.set_nutrition(rand(140,360))
