@@ -13,6 +13,7 @@
 	accessible_z_levels = list("1"=1)
 
 	allowed_spawns = list("Cryogenic Storage")
+	default_spawn = "Cryogenic Storage"
 
 	station_name  = "Station Test"
 	station_short = "Station T"
