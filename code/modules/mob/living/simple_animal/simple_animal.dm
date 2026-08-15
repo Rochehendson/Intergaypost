@@ -388,3 +388,6 @@
 
 /mob/living/simple_animal/get_digestion_product()
 	return /datum/reagent/nutriment
+
+/mob/living/simple_animal/get_speech_bubble_state_modifier()
+	return ..() || "rough"

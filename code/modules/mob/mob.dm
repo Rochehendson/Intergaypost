@@ -2,6 +2,7 @@
 	STOP_PROCESSING(SSmobs, src)
 	GLOB.dead_mob_list_ -= src
 	GLOB.living_mob_list_ -= src
+	QDEL_NULL(typing_indicator)
 	unset_machine()
 	QDEL_NULL(hud_used)
 	if(istype(ability_master))
@@ -90,10 +91,12 @@
 		var/mob/M = m
 		if(self_message && M == src)
 			M.show_message(self_message, VISIBLE_MESSAGE, blind_message, AUDIBLE_MESSAGE)
+			M.create_chat_message(src, null, self_message, runechat_flags = EMOTE_MESSAGE)
 			continue
 
 		if(M.see_invisible >= invisibility || narrate)
 			M.show_message(message, VISIBLE_MESSAGE, blind_message, AUDIBLE_MESSAGE)
+			M.create_chat_message(src, null, message, runechat_flags = EMOTE_MESSAGE)
 			continue
 
 		if(blind_message)
@@ -1043,7 +1046,9 @@ mob/proc/yank_out_object()
 
 /mob/proc/set_stat(var/new_stat)
 	. = stat != new_stat
-	stat = new_stat
+	if(.)
+		stat = new_stat
+		SStyping.set_indicator_state(client, FALSE)
 
 /mob/verb/northfaceperm()
 	set hidden = 1
@@ -1188,3 +1193,45 @@ proc/uh(var/S)
 
 /mob/proc/return_pointer(var/client/client)
 	usr.client.mouse_pointer_icon = 'icons/misc/pointer_cursor.dmi'
+
+// Mob procs relating to the typing indicator subsystem.
+/mob/Logout()
+	if(typing_indicator)
+		vis_contents -= typing_indicator
+	is_typing = FALSE
+	..()
+
+/mob/proc/is_cloaked()
+	return FALSE
+
+/mob/proc/get_speech_bubble_state_modifier()
+	return
+
+/mob/verb/say_wrapper()
+	set name = ".Say"
+	set hidden = TRUE
+	SStyping.set_indicator_state(client, TRUE)
+	var/message = input("","say (text)") as text|null
+	SStyping.set_indicator_state(client, FALSE)
+	if(message)
+		say_verb(message)
+
+/mob/verb/me_wrapper()
+	set name = ".Me"
+	set hidden = TRUE
+	SStyping.set_indicator_state(client, TRUE)
+	var/message = input("","me (text)") as text|null
+	SStyping.set_indicator_state(client, FALSE)
+	if(message)
+		me_verb(message)
+
+/mob/verb/whisper_wrapper()
+	set name = ".Whisper"
+	set hidden = TRUE
+	if(config.show_typing_indicator_for_whispers)
+		SStyping.set_indicator_state(client, TRUE)
+	var/message = input("","whisper (text)") as text|null
+	if(config.show_typing_indicator_for_whispers)
+		SStyping.set_indicator_state(client, FALSE)
+	if(message)
+		whisper(message)
