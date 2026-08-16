@@ -272,7 +272,7 @@
 		return
 
 	var/datum/spawnpoint/spawnpoint = job_master.get_spawnpoint_for(client, job.title)
-	var/turf/spawn_turf = pick(spawnpoint.turfs)
+	var/turf/spawn_turf = spawnpoint.get_spawn_turf(job.title)
 	if(job.latejoin_at_spawnpoints)
 		var/obj/S = job_master.get_roundstart_spawnpoint(job.title)
 		spawn_turf = get_turf(S)
@@ -289,6 +289,8 @@
 
 	character = job_master.EquipRank(character, job.title, 1)					//equips the human
 	equip_custom_items(character)
+	if(ishuman(character) && job.title != "AI" && job.title != "Cyborg")
+		assign_personal_locker(character)
 
 	// AIs don't need a spawnpoint, they must spawn at an empty core
 	if(character.mind.assigned_role == "AI")
@@ -396,7 +398,7 @@
 
 	if(!spawn_turf)
 		var/datum/spawnpoint/spawnpoint = job_master.get_spawnpoint_for(client, get_rank_pref())
-		spawn_turf = pick(spawnpoint.turfs)
+		spawn_turf = spawnpoint.get_spawn_turf(get_rank_pref())
 
 	if(chosen_species)
 		if(!check_species_allowed(chosen_species))

@@ -12,7 +12,8 @@
 	player_levels = list(1,2,3,5)
 	accessible_z_levels = list("1"=1,"2"=90,"3"=1,"5"=1) //Percentage of chance to get on this or that Z level as you drift through space.
 
-	allowed_spawns = list("Cryogenic Storage", "Cryogenic Storage Captain")
+	allowed_spawns = list("Cryogenic Storage")
+	default_spawn = "Cryogenic Storage"
 
 	station_name  = "Perimeter Station 34-53"
 	station_short = "Perimeter"

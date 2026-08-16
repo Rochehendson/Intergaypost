@@ -468,7 +468,9 @@ var/global/datum/controller/occupations/job_master
 				H.forceMove(S.loc)
 			else
 				var/datum/spawnpoint/spawnpoint = get_spawnpoint_for(H.client, rank)
-				H.forceMove(pick(spawnpoint.turfs))
+				var/turf/T = spawnpoint.get_spawn_turf(rank)
+				if(T)
+					H.forceMove(T)
 				spawnpoint.after_join(H)
 
 			// Moving wheelchair if they have one

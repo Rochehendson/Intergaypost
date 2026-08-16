@@ -60,6 +60,9 @@ mob/observer/check_airflow_movable()
 /mob/observer/set_stat()
 	stat = DEAD // They are also always dead
 
+/mob/observer/get_speech_bubble_state_modifier()
+	return "ghost"
+
 /proc/updateallghostimages()
 	for (var/mob/observer/ghost/O in GLOB.player_list)
 		O.updateghostimages()

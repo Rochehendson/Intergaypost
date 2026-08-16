@@ -98,6 +98,7 @@ var/list/gamemode_cache = list()
 	var/forumurl
 	var/githuburl
 	var/discordurl
+	var/show_typing_indicator_for_whispers = FALSE
 
 	var/forbid_singulo_possession = 0
 
@@ -801,6 +802,9 @@ var/list/gamemode_cache = list()
 
 				if("use_loyalty_implants")
 					config.use_loyalty_implants = 1
+
+				if("show_typing_indicator_for_whispers")
+					config.show_typing_indicator_for_whispers = TRUE
 
 				else
 					log_misc("Unknown setting in configuration: '[name]'")

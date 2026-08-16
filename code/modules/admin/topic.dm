@@ -10,6 +10,9 @@
 		check_antagonists()
 		return
 
+	if(handle_locker_topic(href, href_list))
+		return
+
 	if(href_list["dbsearchckey"] || href_list["dbsearchadmin"])
 
 		var/adminckey = href_list["dbsearchadmin"]
@@ -1733,7 +1736,7 @@
 		src.access_news_network()
 
 	else if(href_list["ac_set_new_message"])
-		src.admincaster_feed_message.body = sanitize(input_utf8(usr, "Write your Feed story", "Network Channel Handler", ""))
+		src.admincaster_feed_message.body = sanitize(input(usr, "Write your Feed story", "Network Channel Handler", "") as message|null)
 		src.access_news_network()
 
 	else if(href_list["ac_submit_new_message"])
