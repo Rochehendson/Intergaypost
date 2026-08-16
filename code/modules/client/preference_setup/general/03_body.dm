@@ -284,6 +284,84 @@ var/global/list/valid_bloodtypes = list("A+", "A-", "B+", "B-", "AB+", "AB-", "O
 /datum/category_item/player_setup_item/general/body/proc/has_flag(var/datum/species/mob_species, var/flag)
 	return mob_species && (mob_species.appearance_flags & flag)
 
+/datum/category_item/player_setup_item/general/body/get_data(var/mob/user)
+	var/datum/species/mob_species = all_species[pref.species ? pref.species : SPECIES_HUMAN]
+	if(!mob_species) mob_species = all_species[SPECIES_HUMAN]
+
+	var/list/modifications = list()
+	for(var/name in pref.organ_data)
+		var/status = pref.organ_data[name]
+		var/organ_name = null
+		switch(name)
+			if(BP_L_ARM) organ_name = "left arm"
+			if(BP_R_ARM) organ_name = "right arm"
+			if(BP_L_LEG) organ_name = "left leg"
+			if(BP_R_LEG) organ_name = "right leg"
+			if(BP_L_FOOT) organ_name = "left foot"
+			if(BP_R_FOOT) organ_name = "right foot"
+			if(BP_L_HAND) organ_name = "left hand"
+			if(BP_R_HAND) organ_name = "right hand"
+			if(BP_HEART) organ_name = BP_HEART
+			if(BP_EYES) organ_name = BP_EYES
+			if(BP_BRAIN) organ_name = BP_BRAIN
+			if(BP_LUNGS) organ_name = BP_LUNGS
+			if(BP_LIVER) organ_name = BP_LIVER
+			if(BP_KIDNEYS) organ_name = BP_KIDNEYS
+			if(BP_CHEST) organ_name = "upper body"
+			if(BP_GROIN) organ_name = "lower body"
+			if(BP_HEAD) organ_name = "head"
+
+		var/desc = ""
+		if(status == "cyborg")
+			var/datum/robolimb/R
+			if(pref.rlimb_data[name] && all_robolimbs[pref.rlimb_data[name]])
+				R = all_robolimbs[pref.rlimb_data[name]]
+			else
+				R = basic_robolimb
+			desc = "[R.company] [organ_name] prosthesis"
+		else if(status == "amputated")
+			desc = "Amputated [organ_name]"
+		else if(status == "mechanical")
+			if(organ_name == BP_BRAIN)
+				desc = "Positronic [organ_name]"
+			else
+				desc = "Synthetic [organ_name]"
+		else if(status == "assisted")
+			switch(organ_name)
+				if(BP_HEART) desc = "Pacemaker-assisted [organ_name]"
+				if(BP_EYES) desc = "Retinal overlayed [organ_name]"
+				if(BP_BRAIN) desc = "Machine-interface [organ_name]"
+				else desc = "Mechanically assisted [organ_name]"
+		if(desc)
+			modifications += desc
+
+	var/list/facial_styles = mob_species ? mob_species.get_facial_hair_styles(pref.gender) : null
+
+	return list(
+		"ref" = "\ref[src]",
+		"species" = pref.species,
+		"blood_type" = pref.b_type,
+		"hair_style" = pref.h_style,
+		"hair_color" = rgb(pref.r_hair, pref.g_hair, pref.b_hair),
+		"facial_style" = pref.f_style,
+		"facial_color" = rgb(pref.r_facial, pref.g_facial, pref.b_facial),
+		"eye_color" = rgb(pref.r_eyes, pref.g_eyes, pref.b_eyes),
+		"skin_color" = rgb(pref.r_skin, pref.g_skin, pref.b_skin),
+		"skin_tone" = (-pref.s_tone + 35),
+		"max_skin_tone" = mob_species ? mob_species.max_skin_tone() : 35,
+		"base_skin" = pref.s_base,
+		"has_base_skin" = has_flag(mob_species, HAS_BASE_SKIN_COLOURS) ? 1 : 0,
+		"has_skin_tone" = has_flag(mob_species, HAS_A_SKIN_TONE) ? 1 : 0,
+		"has_skin_color" = has_flag(mob_species, HAS_SKIN_COLOR) ? 1 : 0,
+		"has_hair_color" = has_flag(mob_species, HAS_HAIR_COLOR) ? 1 : 0,
+		"has_facial_hair" = (facial_styles && facial_styles.len > 0) ? 1 : 0,
+		"has_eye_color" = has_flag(mob_species, HAS_EYE_COLOR) ? 1 : 0,
+		"needs_glasses" = (pref.disabilities & NEARSIGHTED) ? 1 : 0,
+		"modifications" = modifications,
+		"has_modifications" = (modifications.len > 0) ? 1 : 0,
+		"bgstate" = pref.bgstate
+	)
+
 /datum/category_item/player_setup_item/general/body/OnTopic(var/href,var/list/href_list, var/mob/user)
 	var/datum/species/mob_species = all_species[pref.species]
 

@@ -1,0 +1,11 @@
+{
+  "id": "academic_scholar",
+  "name": "Academic Scholar",
+  "category": "Academic",
+  "desc": "Educated in prestigious planetary universities or scientific institutes, driven by research and discovery.",
+  "fluff": "You spent years studying advanced sciences and theory before seeking field experience in space. You value knowledge, rational inquiry, and technological advancement above petty politics.",
+  "suggested_faction": "Zeng-Hu Pharmaceuticals",
+  "suggested_home_system": "Terra",
+  "suggested_citizenship": "University Graduate",
+  "suggested_records": "Holds advanced degrees in applied sciences. Certified for research and technical tasks."
+}

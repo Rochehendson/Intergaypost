@@ -107,6 +107,7 @@
 	var/sec_record = ""
 	var/gen_record = ""
 	var/exploit_record = ""
+	var/backstory = "None"
 
 	var/datum/mil_branch/char_branch = null
 	var/datum/mil_rank/char_rank = null

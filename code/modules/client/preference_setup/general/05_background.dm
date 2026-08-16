@@ -11,11 +11,11 @@
 	var/faction = "None"                //Antag faction/general associated faction.
 	var/religion = "Atheism"               //Religious association.
 	var/family = TRUE
-/*
+	var/backstory = "None"
+
 /datum/category_item/player_setup_item/general/background
-	name = "Religion"
+	name = "Background"
 	sort_order = 5
-*/
 /datum/category_item/player_setup_item/general/background/load_character(var/savefile/S)
 	from_file(S["med_record"],pref.med_record)
 	from_file(S["sec_record"],pref.sec_record)
@@ -27,6 +27,7 @@
 	from_file(S["family"],pref.family)
 	from_file(S["nanotrasen_relation"],pref.nanotrasen_relation)
 	from_file(S["memory"],pref.memory)
+	from_file(S["backstory"],pref.backstory)
 
 /datum/category_item/player_setup_item/general/background/save_character(var/savefile/S)
 	to_file(S["med_record"],pref.med_record)
@@ -39,17 +40,21 @@
 	to_file(S["family"],pref.family)
 	to_file(S["nanotrasen_relation"],pref.nanotrasen_relation)
 	to_file(S["memory"],pref.memory)
+	to_file(S["backstory"],pref.backstory)
 
 /datum/category_item/player_setup_item/general/background/sanitize_character()
 	if(!pref.home_system)		 pref.home_system = "Unset"
 	if(!pref.citizenship) 		pref.citizenship = "None"
 	if(!pref.faction)    		pref.faction =     "None"
 	if(!pref.religion)    		pref.religion =    "Deo Machina"
+	if(!pref.backstory || !(pref.backstory in get_all_backstory_names()))
+		pref.backstory = "None"
 
 	pref.nanotrasen_relation = sanitize_inlist(pref.nanotrasen_relation, COMPANY_ALIGNMENTS, initial(pref.nanotrasen_relation))
 
 /datum/category_item/player_setup_item/general/background/content(var/mob/user)
 	. += "<b>Background Information</b><br>"
+	. += "Backstory: <a href='byond://?src=\ref[src];select_backstory=1'>[pref.backstory]</a><br/>"
 	. += "[GLOB.using_map.company_name] Relation: <a href='byond://?src=\ref[src];nt_relation=1'>[pref.nanotrasen_relation]</a><br/>"
 	. += "Home System: <a href='byond://?src=\ref[src];home_system=1'>[pref.home_system]</a><br/>"
 	. += "Citizenship: <a href='byond://?src=\ref[src];citizenship=1'>[pref.citizenship]</a><br/>"
@@ -69,8 +74,41 @@
 		. += "Memory:<br>"
 		. += "<a href='byond://?src=\ref[src];set_memory=1'>[TextPreview(pref.memory,40)]</a><br>"
 
+/datum/category_item/player_setup_item/general/background/get_data(var/mob/user)
+	var/datum/backstory/BS = get_backstory(pref.backstory)
+	return list(
+		"ref" = "\ref[src]",
+		"backstory_name" = BS ? BS.name : (pref.backstory ? pref.backstory : "None"),
+		"backstory_category" = BS ? BS.category : "General",
+		"backstory_desc" = BS ? BS.desc : "",
+		"backstory_fluff" = BS ? BS.fluff : "",
+		"company_name" = GLOB.using_map.company_name,
+		"nt_relation" = pref.nanotrasen_relation,
+		"home_system" = pref.home_system,
+		"citizenship" = pref.citizenship,
+		"faction" = pref.faction,
+		"religion" = pref.religion,
+		"has_records_ban" = jobban_isbanned(user, "Records") ? 1 : 0,
+		"med_record" = pref.med_record ? pref.med_record : "",
+		"med_record_preview" = pref.med_record ? TextPreview(pref.med_record, 40) : "None",
+		"gen_record" = pref.gen_record ? pref.gen_record : "",
+		"gen_record_preview" = pref.gen_record ? TextPreview(pref.gen_record, 40) : "None",
+		"sec_record" = pref.sec_record ? pref.sec_record : "",
+		"sec_record_preview" = pref.sec_record ? TextPreview(pref.sec_record, 40) : "None",
+		"memory" = pref.memory ? pref.memory : "",
+		"memory_preview" = pref.memory ? TextPreview(pref.memory, 40) : "None"
+	)
+
 /datum/category_item/player_setup_item/general/background/OnTopic(var/href,var/list/href_list, var/mob/user)
-	if(href_list["nt_relation"])
+	if(href_list["select_backstory"] || href_list["backstory"])
+		var/list/choices = get_all_backstory_names()
+		var/choice = input(user, "Choose your character's backstory:", CHARACTER_PREFERENCE_INPUT_TITLE, pref.backstory) as null|anything in choices
+		if(!choice || !CanUseTopic(user))
+			return TOPIC_NOACTION
+		pref.backstory = choice
+		return TOPIC_REFRESH
+
+	else if(href_list["nt_relation"])
 		var/new_relation = input(user, "Choose your relation to [GLOB.using_map.company_name]. Note that this represents what others can find out about your character by researching your background, not what your character actually thinks.", CHARACTER_PREFERENCE_INPUT_TITLE, pref.nanotrasen_relation)  as null|anything in COMPANY_ALIGNMENTS
 		if(new_relation && CanUseTopic(user))
 			pref.nanotrasen_relation = new_relation
