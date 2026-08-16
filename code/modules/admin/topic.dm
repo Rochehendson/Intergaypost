@@ -10,6 +10,9 @@
 		check_antagonists()
 		return
 
+	if(handle_locker_topic(href, href_list))
+		return
+
 	if(href_list["dbsearchckey"] || href_list["dbsearchadmin"])
 
 		var/adminckey = href_list["dbsearchadmin"]
