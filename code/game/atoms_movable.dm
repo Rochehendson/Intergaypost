@@ -24,9 +24,20 @@
 	var/item_state = null // Used to specify the item state for the on-mob overlays.
 	var/movable_flags
 	var/pull_sound = null
+	///Are we moving with inertia? Mostly used as an optimization
+	var/inertia_moving = FALSE
+	///Delay in deciseconds between inertia based movement
+	var/inertia_move_delay = 5
+	///Holds information about any movement loops currently running/waiting to run on the movable. Lazy, will be null if nothing's going on
+	var/datum/movement_packet/move_packet
 
 /atom/movable/Destroy()
 	. = ..()
+	if(move_packet)
+		if(!QDELETED(move_packet))
+			qdel(move_packet)
+		move_packet = null
+
 	for(var/atom/movable/AM in src)
 		qdel(AM)
 
@@ -42,6 +53,7 @@
 	if(virtual_mob && !ispath(virtual_mob))
 		qdel(virtual_mob)
 		virtual_mob = null
+
 
 /atom/movable/Bump(var/atom/A, yes)
 	if(src.throwing)
@@ -332,5 +344,25 @@
 */
 /atom/movable/proc/keybind_face_direction(direction)
 	return
+
+/atom/movable/proc/has_gravity(turf/T)
+	return global.has_gravity(src, T)
+
+/atom/movable/proc/Process_Spacemove(movement_dir = 0)
+	return has_gravity()
+
+/// Only moves the object if it's under no gravity
+/atom/movable/proc/newtonian_move(direction)
+	if(!isturf(loc) || Process_Spacemove(0))
+		return FALSE
+
+	if(SEND_SIGNAL(src, COMSIG_MOVABLE_NEWTONIAN_MOVE, direction) & COMPONENT_MOVABLE_NEWTONIAN_BLOCK)
+		return TRUE
+
+	set_glide_size(MOVEMENT_ADJUSTED_GLIDE_SIZE(inertia_move_delay, SSspacedrift.visual_delay))
+	AddComponent(/datum/component/drift, direction)
+
+	return TRUE
+
 
 

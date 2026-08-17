@@ -56,5 +56,12 @@
 #define SS_PRIORITY_WIRELESS      10	// Wireless connection setup.
 
 
+#define SS_PRIORITY_MOVEMENT       50
+#define SS_PRIORITY_CONVEYORS      40
+
+#define FIRE_PRIORITY_SPACEDRIFT SS_PRIORITY_SPACEDRIFT
+#define FIRE_PRIORITY_MOVEMENT SS_PRIORITY_MOVEMENT
+#define FIRE_PRIORITY_CONVEYORS SS_PRIORITY_CONVEYORS
+
 // Subsystem fire priority, from lowest to highest priority
-// If the subsystem isn't listed here it's either DEFAULT or PROCESS (if it's a processing subsystem child)
+// If the subsystem isn't listed here it's either DEFAULT or PROCESS (if it's a processing subsystem child)

@@ -183,6 +183,9 @@
 	if(!mob || !n || !direct)
 		return // Moved here to avoid nullrefs below
 
+	if(SEND_SIGNAL(mob, COMSIG_MOB_CLIENT_PRE_MOVE) & COMSIG_MOB_CLIENT_BLOCK_PRE_MOVE)
+		return FALSE
+
 	if(mob.control_object)	Move_object(direct)
 
 	if(mob.incorporeal_move && isobserver(mob))
@@ -219,6 +222,8 @@
 		return
 
 	if(isliving(mob))
+		if(SEND_SIGNAL(mob, COMSIG_MOB_CLIENT_PRE_LIVING_MOVE) & COMSIG_MOB_CLIENT_BLOCK_PRE_LIVING_MOVE)
+			return FALSE
 		var/mob/living/L = mob
 		if(L.incorporeal_move)//Move though walls
 			Process_Incorpmove(direct)
@@ -348,9 +353,14 @@
 						if(M)
 							if ((get_dist(mob, M) <= 1 || M.loc == mob.loc))
 								var/turf/T = mob.loc
+								var/temp_visual_delay = visual_delay
+								visual_delay = 0
 								if(mob.updating_glide_size)
-									var/actual_delay = max(move_delay - world.time, world.tick_lag)
-									mob.set_glide_size(DELAY_TO_GLIDE_SIZE(actual_delay))
+									if(temp_visual_delay)
+										mob.set_glide_size(temp_visual_delay)
+									else
+										var/actual_delay = max(move_delay - world.time, world.tick_lag)
+										mob.set_glide_size(DELAY_TO_GLIDE_SIZE(actual_delay))
 								. = ..()
 								if (isturf(M.loc))
 									var/diag = get_dir(mob, M)
@@ -384,9 +394,14 @@
 						if(prob(35))
 							direct = turn(direct, pick(90, -90))
 							n = get_step(mob, direct)
+			var/temp_visual_delay = visual_delay
+			visual_delay = 0
 			if(mob.updating_glide_size)
-				var/actual_delay = max(move_delay - world.time, world.tick_lag)
-				mob.set_glide_size(DELAY_TO_GLIDE_SIZE(actual_delay))
+				if(temp_visual_delay)
+					mob.set_glide_size(temp_visual_delay)
+				else
+					var/actual_delay = max(move_delay - world.time, world.tick_lag)
+					mob.set_glide_size(DELAY_TO_GLIDE_SIZE(actual_delay))
 			. = mob.SelfMove(n, direct)
 		for (var/obj/item/grab/G in mob)
 			if (G.assailant_reverse_facing())
@@ -407,6 +422,13 @@
 
 /mob/proc/SelfMove(turf/n, direct)
 	return Move(n, direct)
+
+/mob/newtonian_move(direction)
+	. = ..()
+	if(!.)
+		return
+	if(client)
+		client.visual_delay = MOVEMENT_ADJUSTED_GLIDE_SIZE(inertia_move_delay, SSspacedrift.visual_delay)
 
 
 ///Process_Incorpmove
@@ -485,8 +507,9 @@
 ///Called by /client/Move()
 ///For moving in space
 ///Return 1 for movement 0 for none
-/mob/proc/Process_Spacemove(var/check_drift = 0)
+/mob/Process_Spacemove(var/check_drift = 0)
 	if(!Check_Dense_Object()) //Nothing to push off of so end here
+
 		update_floating()
 		return 0
 

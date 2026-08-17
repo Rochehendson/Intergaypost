@@ -16,7 +16,9 @@
 	var/datum/preferences/prefs = null
 	var/move_delay		= 1
 	var/moving			= null
+	var/visual_delay	= 0
 	var/adminobs		= null
+
 
 	var/adminhelped = 0
 
