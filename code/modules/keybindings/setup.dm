@@ -70,3 +70,9 @@
 	//In case one got stuck and the previous loop didn't clean it, somehow.
 	for(var/key in key_combos_held)
 		keyUp(key_combos_held[key])
+
+	keys_held.Cut()
+	key_combos_held.Cut()
+	next_move_dir_add = 0
+	next_move_dir_sub = 0
+	last_move_dir_pressed = 0

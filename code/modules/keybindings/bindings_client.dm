@@ -27,11 +27,12 @@
 	keys_held[_key] = world.time
 	if(!movement_locked)
 		var/movement = movement_keys[_key]
-		if(!(next_move_dir_sub & movement))
+		if(movement)
+			next_move_dir_sub &= ~movement
 			next_move_dir_add |= movement
 
-		if(movement && !config.allow_diagonal_movement)
-			last_move_dir_pressed = movement
+			if(!config.allow_diagonal_movement)
+				last_move_dir_pressed = movement
 
 	// Client-level keybindings are ones anyone should be able to do at any time
 	// Things like taking screenshots, hitting tab, and adminhelps.
@@ -77,8 +78,16 @@
 
 	if(!movement_locked)
 		var/movement = movement_keys[_key]
-		if(!(next_move_dir_add & movement))
-			next_move_dir_sub |= movement
+		if(movement)
+			if(!(next_move_dir_add & movement))
+				next_move_dir_sub |= movement
+
+			if(!config.allow_diagonal_movement && movement == last_move_dir_pressed)
+				last_move_dir_pressed = 0
+				for(var/k in keys_held)
+					if(movement_keys[k])
+						last_move_dir_pressed = movement_keys[k]
+						break
 
 	// We don't do full key for release, because for mod keys you
 	// can hold different keys and releasing any should be handled by the key binding specifically

@@ -2,13 +2,23 @@
 // Only way to do that is to tie the behavior into the focus's keyLoop().
 
 /atom/movable/keyLoop(client/user)
+	if(!user)
+		return
+
 	var/movement_dir = null
 	for(var/_key in user.keys_held)
 		movement_dir = movement_dir | user.movement_keys[_key]
 	if(user.next_move_dir_add)
 		movement_dir |= user.next_move_dir_add
+
+	if(!movement_dir)
+		user.next_move_dir_sub = 0
+		user.next_move_dir_add = 0
+		return
+
 	if(user.next_move_dir_sub)
 		movement_dir &= ~user.next_move_dir_sub
+
 	// Sanity checks in case you hold left and right and up to make sure you only go up
 	if((movement_dir & NORTH) && (movement_dir & SOUTH))
 		movement_dir &= ~(NORTH|SOUTH)
@@ -27,9 +37,13 @@
 		movement_dir = turn(movement_dir, -dir2angle(user.dir)) //By doing this we ensure that our input direction is offset by the client (camera) direction
 
 	if(!movement_dir)
+		user.next_move_dir_sub = 0
+		user.next_move_dir_add = 0
 		return
 
 	if(user.movement_locked)
 		keybind_face_direction(movement_dir)
+		user.next_move_dir_add = 0
+		user.next_move_dir_sub = 0
 	else
 		user.Move(get_step(src, movement_dir), movement_dir)
