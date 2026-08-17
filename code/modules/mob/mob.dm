@@ -144,6 +144,7 @@
 			return M
 	return 0
 
+
 /mob/proc/movement_delay()
 	. = -0.5
 	if(istype(loc, /turf))
@@ -1234,4 +1235,22 @@ proc/uh(var/S)
 	if(config.show_typing_indicator_for_whispers)
 		SStyping.set_indicator_state(client, FALSE)
 	if(message)
-		whisper(message)
+		whisper(message)
+
+/// Update the mouse pointer of the attached client in this mob.
+/mob/proc/update_mouse_pointer()
+	if(!client)
+		return
+
+	client.mouse_pointer_icon = initial(client.mouse_pointer_icon)
+
+	if(client.get_preference_value(/datum/client_preference/examine_cursor) == GLOB.PREF_NO)
+		return
+
+	if(examine_cursor_icon && client.keys_held["Shift"])
+		client.mouse_pointer_icon = examine_cursor_icon
+
+
+/mob/keybind_face_direction(direction)
+	facedir(direction)
+

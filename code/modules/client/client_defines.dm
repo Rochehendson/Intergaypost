@@ -75,3 +75,22 @@
 	var/hi_last_pos
 
 	var/encoding = "1252"
+
+	/// All keys currently held down.
+	var/list/keys_held = list()
+	/// For combinations of keys
+	var/list/key_combos_held = list()
+	/// Cached list of keys currently bound to movement. Key: key string, Value: direction
+	var/list/movement_keys = list()
+	/// All keys that are configured to bypass the check for canmove or user intent.
+	var/movement_locked = FALSE
+	/// Next direction to add to movement_dir
+	var/next_move_dir_add = 0
+	/// Next direction to subtract from movement_dir
+	var/next_move_dir_sub = 0
+	/// Movement dir of the most recently pressed movement key. Used in cardinal-only movement mode.
+	var/last_move_dir_pressed = 0
+	/// Client keypress spam prevention
+	var/acted_time = 0
+	var/acted_counter = 0
+

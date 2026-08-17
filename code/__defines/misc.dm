@@ -274,3 +274,8 @@
 #define END_FOR_DVIEW dview_mob.loc = null
 
 #define subtypesof(prototype) (typesof(prototype) - prototype)
+
+//NOTE: INTENT_HOTKEY_* defines are not actual intents!
+//they are here to support hotkeys
+#define INTENT_HOTKEY_LEFT  "left"
+#define INTENT_HOTKEY_RIGHT "right"
