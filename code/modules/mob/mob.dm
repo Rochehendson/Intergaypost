@@ -145,6 +145,11 @@
 	return 0
 
 
+/mob/set_glide_size(target = 8)
+	..()
+	if(pulling && ismovable(pulling))
+		pulling.set_glide_size(target)
+
 /mob/proc/movement_delay()
 	. = -0.5
 	if(istype(loc, /turf))

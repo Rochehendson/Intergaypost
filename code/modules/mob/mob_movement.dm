@@ -132,56 +132,34 @@
 
 //This proc should never be overridden elsewhere at /atom/movable to keep directions sane.
 /atom/movable/Move(newloc, direct, glide_size_override = 0)
-	if (direct & (direct - 1))
-		if (direct & 1)
-			if (direct & 4)
-				if (step(src, NORTH))
-					step(src, EAST)
-				else
-					if (step(src, EAST))
-						step(src, NORTH)
-			else
-				if (direct & 8)
-					if (step(src, NORTH))
-						step(src, WEST)
-					else
-						if (step(src, WEST))
-							step(src, NORTH)
-		else
-			if (direct & 2)
-				if (direct & 4)
-					if (step(src, SOUTH))
-						step(src, EAST)
-					else
-						if (step(src, EAST))
-							step(src, SOUTH)
-				else
-					if (direct & 8)
-						if (step(src, SOUTH))
-							step(src, WEST)
-						else
-							if (step(src, WEST))
-								step(src, SOUTH)
-	else
-		var/atom/A = src.loc
+	if(glide_size_override)
+		set_glide_size(glide_size_override)
 
-		if(glide_size_override)
-			set_glide_size(glide_size_override)
+	var/atom/A = src.loc
+	var/olddir = dir //we can't override this without sacrificing the rest of movable/New()
+	. = ..()
 
-		var/olddir = dir //we can't override this without sacrificing the rest of movable/New()
-		. = ..()
-		if(direct != olddir)
-			dir = olddir
-			set_dir(direct)
+	if(!. && (direct & (direct - 1)) && config.allow_diagonal_movement)
+		var/first_dir = direct & (NORTH|SOUTH)
+		var/second_dir = direct & (EAST|WEST)
+		if(first_dir && step(src, first_dir))
+			return 1
+		else if(second_dir && step(src, second_dir))
+			return 1
+		return 0
 
-		src.move_speed = world.time - src.l_move_time
-		src.l_move_time = world.time
-		src.m_flag = 1
-		if ((A != src.loc && A && A.z == src.z))
-			src.last_move = get_dir(A, src.loc)
-		if(.)
-			Moved(A, direct)
-	return
+	if(direct != olddir)
+		dir = olddir
+		set_dir(direct)
+
+	src.move_speed = world.time - src.l_move_time
+	src.l_move_time = world.time
+	src.m_flag = 1
+	if ((A != src.loc && A && A.z == src.z))
+		src.last_move = get_dir(A, src.loc)
+	if(.)
+		Moved(A, direct)
+	return .
 
 // Called on a successful Move().
 /atom/movable/proc/Moved(atom/oldloc)
@@ -199,7 +177,10 @@
 
 
 /client/Move(n, direct)
-	if(!mob)
+	if(!user_acted(src))
+		return
+
+	if(!mob || !n || !direct)
 		return // Moved here to avoid nullrefs below
 
 	if(mob.control_object)	Move_object(direct)
@@ -210,7 +191,12 @@
 
 	if(moving)	return 0
 
-	if(world.time < move_delay)	return
+	if(world.time < move_delay)
+		return
+	else
+		next_move_dir_add = 0
+		next_move_dir_sub = 0
+
 
 	if(locate(/obj/effect/stop/, mob.loc))
 		for(var/obj/effect/stop/S in mob.loc)
@@ -286,16 +272,20 @@
 			to_chat(src, "<span class='notice'>You're pinned to a wall by [mob.pinned[1]]!</span>")
 			return 0
 
-		move_delay = world.time//set move delay
+		var/step_delay = 0
 
 		switch(mob.m_intent)
 			if("run")
 				if(mob.drowsyness > 0)
-					move_delay += 6
-				move_delay += 1+config.run_speed
+					step_delay += 6
+				step_delay += 1+config.run_speed
 			if("walk")
-				move_delay += 7+config.walk_speed
-		move_delay += mob.movement_delay()
+				step_delay += 7+config.walk_speed
+		step_delay += mob.movement_delay()
+		step_delay = max(step_delay, world.tick_lag)
+
+		if((direct & (direct - 1)) && config.diagonal_movement_speed_normalization)
+			step_delay *= DIAGONAL_MOVE_DELAY_MULT
 
 		if(istype(mob.buckled, /obj/vehicle))
 			//manually set move_delay for vehicles so we don't inherit any mob movement penalties
@@ -329,8 +319,20 @@
 							if(prob(50))	direct = turn(direct, pick(90, -90))
 						if("walk")
 							if(prob(25))	direct = turn(direct, pick(90, -90))
-				move_delay += 2
+				step_delay += 2
+				if(world.time - move_delay > step_delay)
+					move_delay = world.time + step_delay
+				else
+					move_delay = max(move_delay + step_delay, world.time + world.tick_lag)
+				if(mob.updating_glide_size)
+					var/actual_delay = max(move_delay - world.time, world.tick_lag)
+					mob.set_glide_size(DELAY_TO_GLIDE_SIZE(actual_delay))
 				return mob.buckled.relaymove(mob,direct)
+
+		if(world.time - move_delay > step_delay)
+			move_delay = world.time + step_delay
+		else
+			move_delay = max(move_delay + step_delay, world.time + world.tick_lag)
 
 		//We are now going to move
 		moving = 1
@@ -346,6 +348,9 @@
 						if(M)
 							if ((get_dist(mob, M) <= 1 || M.loc == mob.loc))
 								var/turf/T = mob.loc
+								if(mob.updating_glide_size)
+									var/actual_delay = max(move_delay - world.time, world.tick_lag)
+									mob.set_glide_size(DELAY_TO_GLIDE_SIZE(actual_delay))
 								. = ..()
 								if (isturf(M.loc))
 									var/diag = get_dir(mob, M)
@@ -379,6 +384,9 @@
 						if(prob(35))
 							direct = turn(direct, pick(90, -90))
 							n = get_step(mob, direct)
+			if(mob.updating_glide_size)
+				var/actual_delay = max(move_delay - world.time, world.tick_lag)
+				mob.set_glide_size(DELAY_TO_GLIDE_SIZE(actual_delay))
 			. = mob.SelfMove(n, direct)
 		for (var/obj/item/grab/G in mob)
 			if (G.assailant_reverse_facing())

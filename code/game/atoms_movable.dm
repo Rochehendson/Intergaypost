@@ -57,10 +57,12 @@
 	return
 
 /atom/movable/proc/set_glide_size(target = 8)
-	SEND_SIGNAL(src, COMSIG_MOVABLE_UPDATE_GLIDE_SIZE, target)
+	if(glide_size == target)
+		return
 	glide_size = target
+	SEND_SIGNAL(src, COMSIG_MOVABLE_UPDATE_GLIDE_SIZE, target)
 
-	for(var/atom/movable/AM)
+	for(var/atom/movable/AM in src)
 		AM.set_glide_size(target)
 
 /atom/movable/proc/forceMove(atom/destination)
