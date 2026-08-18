@@ -59,7 +59,22 @@
 	if (locate(/obj/structure/table) in get_turf(mover))
 		return TRUE
 
-	if(get_dir(loc, target) == dir)
+	if(get_dir(loc, target) & dir)
+		return !density
+	else
+		return TRUE
+
+/obj/structure/railing/CheckExit(atom/movable/mover as mob|obj, turf/target as turf)
+	if(!mover)
+		return TRUE
+
+	if(istype(mover) && mover.checkpass(PASS_FLAG_TABLE))
+		return TRUE
+
+	if (locate(/obj/structure/table) in get_turf(mover))
+		return TRUE
+
+	if(get_dir(loc, target) & dir)
 		return !density
 	else
 		return TRUE
@@ -365,7 +380,9 @@
 	set hidden = 1
 
 /obj/structure/railing/smallwall/CheckExit(atom/movable/O as mob|obj, target as turf)
-	return 0
+	if(get_dir(loc, target) & dir)
+		return 0
+	return 1
 
 /obj/structure/railing/smallwall/attackby(obj/item/W as obj, mob/user as mob)
 	playsound(loc, 'sound/effects/grillehit.ogg', 50, 1)

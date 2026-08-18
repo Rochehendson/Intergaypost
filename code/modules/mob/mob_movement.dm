@@ -287,10 +287,11 @@
 			if("walk")
 				step_delay += 7+config.walk_speed
 		step_delay += mob.movement_delay()
-		step_delay = max(step_delay, world.tick_lag)
 
 		if((direct & (direct - 1)) && config.diagonal_movement_speed_normalization)
 			step_delay *= DIAGONAL_MOVE_DELAY_MULT
+
+		step_delay = max(round(step_delay, world.tick_lag), world.tick_lag)
 
 		if(istype(mob.buckled, /obj/vehicle))
 			//manually set move_delay for vehicles so we don't inherit any mob movement penalties
@@ -325,13 +326,20 @@
 						if("walk")
 							if(prob(25))	direct = turn(direct, pick(90, -90))
 				step_delay += 2
-				move_delay = world.time + step_delay
+				step_delay = max(round(step_delay, world.tick_lag), world.tick_lag)
+				if(world.time - move_delay > step_delay)
+					move_delay = world.time + step_delay
+				else
+					move_delay = max(move_delay + step_delay, world.time + world.tick_lag)
 				if(mob.updating_glide_size)
 					var/actual_delay = max(move_delay - world.time, world.tick_lag)
 					mob.set_glide_size(DELAY_TO_GLIDE_SIZE(actual_delay))
 				return mob.buckled.relaymove(mob,direct)
 
-		move_delay = world.time + step_delay
+		if(world.time - move_delay > step_delay)
+			move_delay = world.time + step_delay
+		else
+			move_delay = max(move_delay + step_delay, world.time + world.tick_lag)
 
 		//We are now going to move
 		moving = 1
