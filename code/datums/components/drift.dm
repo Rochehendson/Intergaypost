@@ -71,7 +71,7 @@
 	var/atom/movable/movable_parent = parent
 	movable_parent.inertia_moving = FALSE
 	movable_parent.set_dir(old_dir)
-	if(movable_parent.Process_Spacemove(0))
+	if(movable_parent.Process_Spacemove(1))
 
 		glide_to_halt(visual_delay)
 		return
@@ -91,7 +91,7 @@
 		return
 	if(movable_parent.inertia_moving) //This'll be handled elsewhere
 		return
-	if(!movable_parent.Process_Spacemove(0))
+	if(!movable_parent.Process_Spacemove(1))
 		return
 	qdel(src)
 

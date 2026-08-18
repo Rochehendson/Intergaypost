@@ -127,7 +127,7 @@
 				W.set_color()
 				W.set_up(T)
 
-		if((istype(usr.loc, /turf/space)) || (usr.lastarea.has_gravity == 0))
+		if(!user.check_solid_ground())
 			user.newtonian_move(get_dir(target, user))
 	else
 		return ..()

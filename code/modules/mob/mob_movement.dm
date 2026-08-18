@@ -255,7 +255,7 @@
 	if(!mob.lastarea)
 		mob.lastarea = get_area(mob.loc)
 
-	if((istype(mob.loc, /turf/space)) || (mob.lastarea.has_gravity == 0))
+	if(!mob.check_solid_ground())
 		if(!mob.Process_Spacemove(0))	return 0
 
 	if(isobj(mob.loc) || ismob(mob.loc))//Inside an object, tell it we moved
@@ -510,8 +510,10 @@
 ///For moving in space
 ///Return 1 for movement 0 for none
 /mob/Process_Spacemove(var/check_drift = 0)
-	if(!Check_Dense_Object()) //Nothing to push off of so end here
+	if(check_drift)
+		return check_solid_ground()
 
+	if(!Check_Dense_Object()) //Nothing to push off of so end here
 		update_floating()
 		return 0
 
@@ -522,31 +524,37 @@
 	return 1
 
 /mob/proc/check_solid_ground()
-	if(istype(loc, /turf/space))
+	var/turf/T = get_turf(src)
+	if(!T || istype(T, /turf/space))
 		return 0
 
-	//Check to see if we slipped
-	if(prob(Process_Spaceslipping(0)) && !buckled)
-		src << "<font color='blue'><B>You slipped!</B></font>"
-		src.inertia_dir = src.last_move
-		step(src, src.inertia_dir)
-		return 0
-	//If not then we can reset inertia and move
-	inertia_dir = 0
-	return 1
+	if(mob_has_gravity(T))
+		//Check to see if we slipped
+		if(prob(Process_Spaceslipping(0)) && !buckled)
+			src << "<font color='blue'><B>You slipped!</B></font>"
+			src.inertia_dir = src.last_move
+			step(src, src.inertia_dir)
+			return 0
+		//If not then we can reset inertia and move
+		inertia_dir = 0
+		return 1
+
+	if(istype(T, /turf/simulated/floor) && Check_Shoegrip())
+		inertia_dir = 0
+		return 1
+
+	return 0
 
 /mob/proc/Check_Dense_Object() //checks for anything to push off in the vicinity. also handles magboots on gravity-less floors tiles
-
 	var/dense_object = 0
 	var/shoegrip
 
-	for(var/turf/turf in oview(1,src))
-		if(istype(turf,/turf/space))
+	for(var/turf/turf in range(1, src))
+		if(istype(turf, /turf/space))
 			continue
 
-		if(istype(turf,/turf/simulated/floor)) // Floors don't count if they don't have gravity
-			var/area/A = turf.loc
-			if(istype(A) && A.has_gravity == 0)
+		if(istype(turf, /turf/simulated/floor)) // Floors don't count if they don't have gravity
+			if(!mob_has_gravity(turf))
 				if(shoegrip == null)
 					shoegrip = Check_Shoegrip() //Shoegrip is only ever checked when a zero-gravity floor is encountered to reduce load
 				if(!shoegrip)
@@ -555,19 +563,21 @@
 		dense_object++
 		break
 
-	if(!dense_object && (locate(/obj/structure/lattice) in oview(1, src)))
+	if(!dense_object && (locate(/obj/structure/lattice) in range(1, src)))
 		dense_object++
 
-	if(!dense_object && (locate(/obj/structure/catwalk) in oview(1, src)))
+	if(!dense_object && (locate(/obj/structure/catwalk) in range(1, src)))
 		dense_object++
 
+	if(!dense_object && (locate(/obj/structure/grille) in range(1, src)))
+		dense_object++
 
 	//Lastly attempt to locate any dense objects we could push off of
 	//TODO: If we implement objects drifing in space this needs to really push them
 	//Due to a few issues only anchored and dense objects will now work.
 	if(!dense_object)
-		for(var/obj/O in oview(1, src))
-			if((O) && (O.density) && (O.anchored))
+		for(var/obj/O in range(1, src))
+			if(O && O.density && O.anchored)
 				dense_object++
 				break
 
