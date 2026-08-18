@@ -325,19 +325,13 @@
 						if("walk")
 							if(prob(25))	direct = turn(direct, pick(90, -90))
 				step_delay += 2
-				if(world.time - move_delay > step_delay)
-					move_delay = world.time + step_delay
-				else
-					move_delay = max(move_delay + step_delay, world.time + world.tick_lag)
+				move_delay = world.time + step_delay
 				if(mob.updating_glide_size)
 					var/actual_delay = max(move_delay - world.time, world.tick_lag)
 					mob.set_glide_size(DELAY_TO_GLIDE_SIZE(actual_delay))
 				return mob.buckled.relaymove(mob,direct)
 
-		if(world.time - move_delay > step_delay)
-			move_delay = world.time + step_delay
-		else
-			move_delay = max(move_delay + step_delay, world.time + world.tick_lag)
+		move_delay = world.time + step_delay
 
 		//We are now going to move
 		moving = 1
