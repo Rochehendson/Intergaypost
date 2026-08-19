@@ -33,6 +33,36 @@ SUBSYSTEM_DEF(ticker)
 	to_world("Choose your face, and prepare to act out your part. The game will start in [round(pregame_timeleft/10)] seconds.")
 	return ..()
 
+/datum/controller/subsystem/ticker/Recover()
+	flags |= SS_NO_INIT
+	pregame_timeleft = SSticker.pregame_timeleft
+	gamemode_vote_results = SSticker.gamemode_vote_results
+	bypass_gamemode_vote = SSticker.bypass_gamemode_vote
+	master_mode = SSticker.master_mode
+	mode = SSticker.mode
+	round_progressing = SSticker.round_progressing
+	bad_modes = SSticker.bad_modes
+	revotes_allowed = SSticker.revotes_allowed
+	end_game_state = SSticker.end_game_state
+	delay_end = SSticker.delay_end
+	delay_notified = SSticker.delay_notified
+	restart_timeout = SSticker.restart_timeout
+	minds = SSticker.minds
+	antag_pool = SSticker.antag_pool
+	looking_for_antags = SSticker.looking_for_antags
+	eof = SSticker.eof
+
+	if (Master)
+		switch (GAME_STATE)
+			if(RUNLEVEL_LOBBY)
+				Master.SetRunLevel(RUNLEVEL_LOBBY)
+			if(RUNLEVEL_SETUP)
+				Master.SetRunLevel(RUNLEVEL_SETUP)
+			if(RUNLEVEL_GAME)
+				Master.SetRunLevel(RUNLEVEL_GAME)
+			if(RUNLEVEL_POSTGAME)
+				Master.SetRunLevel(RUNLEVEL_POSTGAME)
+
 /datum/controller/subsystem/ticker/fire(resumed = 0)
 	switch(GAME_STATE)
 		if(RUNLEVEL_LOBBY)

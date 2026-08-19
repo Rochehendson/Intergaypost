@@ -16,6 +16,10 @@ SUBSYSTEM_DEF(assets)
 		addtimer(CALLBACK(src, PROC_REF(getFilesSlow), C, preload, FALSE), 10)
 	..()
 
+/datum/controller/subsystem/assets/Recover()
+	cache = SSassets.cache
+	preload = SSassets.preload
+
 /datum/controller/subsystem/assets/proc/register_asset(asset_name, asset)
 	cache[asset_name] = asset
 
