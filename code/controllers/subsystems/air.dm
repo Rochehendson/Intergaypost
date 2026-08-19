@@ -114,7 +114,7 @@ SUBSYSTEM_DEF(air)
 	Initialize(REALTIMEOFDAY, simulate = FALSE)
 
 	// Update next_fire so the MC doesn't try to make up for missed ticks.
-	next_fire = world.time + wait
+	update_nextfire(reset_time = TRUE)
 	can_fire = TRUE
 
 /datum/controller/subsystem/air/stat_entry()

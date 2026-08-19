@@ -393,7 +393,7 @@ SUBSYSTEM_DEF(garbage)
 			running_find_references = null
 			//restart the garbage collector
 			SSgarbage.can_fire = 1
-			SSgarbage.next_fire = world.time + world.tick_lag
+			SSgarbage.update_nextfire(reset_time = TRUE)
 			return
 
 		if(!skip_alert)
@@ -427,7 +427,7 @@ SUBSYSTEM_DEF(garbage)
 
 	//restart the garbage collector
 	SSgarbage.can_fire = 1
-	SSgarbage.next_fire = world.time + world.tick_lag
+	SSgarbage.update_nextfire(reset_time = TRUE)
 
 /datum/verb/qdel_then_find_references()
 	set category = "Debug"
