@@ -209,6 +209,7 @@ GLOBAL_REAL(Master, /datum/controller/master) = new
 	world.fps = config.fps
 	var/initialized_tod = REALTIMEOFDAY
 	initializations_finished_with_no_players_logged_in = initialized_tod < REALTIMEOFDAY - 10
+	UpdateTickRate()
 	// Loop.
 	Master.StartProcessing(0)
 
@@ -608,3 +609,13 @@ GLOBAL_REAL(Master, /datum/controller/master) = new
 	for(var/S in subsystems)
 		var/datum/controller/subsystem/SS = S
 		SS.StopLoadingMap()
+
+/datum/controller/master/proc/UpdateTickRate()
+	if (!processing)
+		return
+	var/client_count = length(GLOB.clients)
+	if (client_count < config.disable_high_pop_mc_mode_amount)
+		processing = config.base_mc_tick_rate
+	else if (client_count > config.high_pop_mc_mode_amount)
+		processing = config.high_pop_mc_tick_rate
+
