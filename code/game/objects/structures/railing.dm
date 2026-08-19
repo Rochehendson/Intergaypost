@@ -49,35 +49,20 @@
 	. = ..()
 
 /obj/structure/railing/CanPass(atom/movable/mover, turf/target, height=0, air_group=0)
-	if(!mover)
+	if (!istype(mover) || mover.checkpass(PASS_FLAG_TABLE))
 		return TRUE
-
-	if(istype(mover) && mover.checkpass(PASS_FLAG_TABLE))
-		return TRUE
-
-	if (locate(/obj/structure/table) in get_turf(mover))
-		return TRUE
-
-	if(get_dir(loc, target) & dir)
+	if (get_dir(loc, target) & dir)
 		return !density
-	else
-		return TRUE
+	return TRUE
 
-/obj/structure/railing/CheckExit(atom/movable/mover as mob|obj, turf/target as turf)
-	if(!mover)
-		return TRUE
-
-	if(istype(mover) && mover.checkpass(PASS_FLAG_TABLE))
-		return TRUE
-
-	if (locate(/obj/structure/table) in get_turf(mover))
-		return TRUE
-
-	if(get_dir(loc, target) & dir)
-		return !density
-	else
-		return TRUE
-//32 è 4 - â òîé æå êëåòêå
+/obj/structure/railing/CheckExit(atom/movable/O, turf/target)
+	if (istype(O) && O.checkpass(PASS_FLAG_TABLE))
+		return 1
+	if (get_dir(O.loc, target) & dir)
+		if (!density)
+			return 1
+		return 0
+	return 1
 
 /obj/structure/railing/examine(mob/user)
 	. = ..()
@@ -306,6 +291,14 @@
 		else
 	return
 
+/obj/structure/railing/can_climb(mob/living/user, post_climb_check=0)
+	. = ..()
+	if (. && get_turf(user) == get_turf(src))
+		var/turf/T = get_step(src, src.dir)
+		if (!T || T.density || T.turf_is_crowded())
+			to_chat(user, "<span class='warning'>You can't climb there, the way is blocked.</span>")
+			return 0
+
 /obj/structure/railing/do_climb(var/mob/living/user)
 	if(!can_climb(user))
 		return
@@ -334,6 +327,27 @@
 	usr.visible_message("<span class='warning'>[user] climbed over \the [src]!</span>")
 	if(!anchored)	take_damage(maxhealth) // Fatboy
 	climbers -= user
+
+/obj/structure/railing/proc/slam_into(mob/living/L)
+	var/turf/target_turf = get_turf(src)
+	if (target_turf == get_turf(L))
+		target_turf = get_step(src, dir)
+	if (!target_turf.density && !target_turf.turf_is_crowded())
+		L.forceMove(target_turf)
+		L.visible_message("<span class='warning'>\The [L] [pick("falls", "flies")] over \the [src]!</span>")
+		L.Weaken(2)
+		playsound(L, 'sound/effects/grillehit.ogg', 25, 1, 0)
+		return TRUE
+	return FALSE
+
+/obj/structure/railing/hitby(atom/movable/AM as mob|obj, var/speed)
+	var/mob/living/L = AM
+	if (!istype(L))
+		return ..()
+	if (prob(50))
+		slam_into(L)
+	else
+		return ..()
 
 /obj/structure/railing/smallwall
 	name = "small wall"
