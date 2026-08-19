@@ -1494,7 +1494,7 @@
 "CL" = (/obj/effect/floor_decal/newcorner/yellow,/turf/simulated/floor/tiled,/area/quartermaster/qm)
 "CM" = (/obj/structure/closet/emcloset,/obj/effect/floor_decal/newcorner/yellow/solid,/turf/simulated/floor/tiled,/area/quartermaster/qm)
 "CN" = (/obj/structure/cable{d1 = 1; d2 = 2; icon_state = "1-2"},/obj/structure/cable{d1 = 2; d2 = 4; icon_state = "2-4"},/obj/machinery/atmospherics/pipe/manifold/hidden/scrubbers{dir = 1},/obj/machinery/atmospherics/pipe/manifold/hidden/supply{dir = 1},/turf/simulated/floor/tiled,/area/engineering/foyer)
-"CO" = (/obj/turbolift_map_holder/alpha/freight_elevator,/turf/simulated/floor/plating,/area/turbolift/cargo_maintenance)
+"CO" = (/turf/simulated/floor/plating,/area/turbolift/cargo_maintenance)
 "CP" = (/obj/machinery/alarm{dir = 4; icon_state = "alarm0"; pixel_x = -22},/obj/structure/bed/chair{dir = 4},/obj/effect/floor_decal/newcorner/black{tag = "icon-black (WEST)"; icon_state = "black"; dir = 8},/turf/simulated/floor/tiled/dark,/area/hallway/secondary/exit)
 "CQ" = (/obj/machinery/atmospherics/unary/vent_scrubber/on{dir = 4},/turf/simulated/floor/tiled/dark,/area/hallway/secondary/exit)
 "CR" = (/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{dir = 9},/obj/machinery/atmospherics/pipe/simple/hidden/supply,/turf/simulated/floor/tiled/dark,/area/hallway/secondary/exit)

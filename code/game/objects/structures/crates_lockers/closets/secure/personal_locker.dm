@@ -3,11 +3,11 @@ GLOBAL_LIST_EMPTY(all_personal_lockers)
 /obj/structure/closet/secure_closet/personal_locker
 	name = "personal locker"
 	desc = "A secure personal storage unit bolted to the deck. It has a keyhole for a physical key."
-	icon_state = "secure1"
-	icon_closed = "secure"
-	icon_locked = "secure1"
-	icon_opened = "secureopen"
-	icon_off = "secureoff"
+	icon_state = "ntr"
+	icon_closed = "ntr"
+	icon_locked = "ntr"
+	icon_opened = "ntropen"
+	icon_off = "ntr"
 
 	anchored = TRUE
 	locked = TRUE
