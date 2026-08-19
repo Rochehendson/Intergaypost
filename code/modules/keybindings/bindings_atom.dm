@@ -5,11 +5,7 @@
 	if(!user)
 		return
 
-	var/movement_dir = null
-	for(var/_key in user.keys_held)
-		movement_dir = movement_dir | user.movement_keys[_key]
-	if(user.next_move_dir_add)
-		movement_dir |= user.next_move_dir_add
+	var/movement_dir = user.intended_direction | user.next_move_dir_add
 
 	if(!movement_dir)
 		user.next_move_dir_sub = 0

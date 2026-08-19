@@ -22,8 +22,7 @@
 	throwpass = 1
 	layer = ABOVE_HUMAN_LAYER
 	anchored = 1
-	atom_flags = ATOM_FLAG_CHECKS_BORDER
-	atom_flags = ATOM_FLAG_CLIMBABLE
+	atom_flags = ATOM_FLAG_CHECKS_BORDER | ATOM_FLAG_CLIMBABLE
 	icon_state = "railing0"
 	var/broken = 0
 	var/health=70
@@ -226,13 +225,6 @@
 	set_dir(turn(dir, 180))
 	update_icon()
 	return
-
-/obj/structure/railing/CheckExit(atom/movable/O as mob|obj, target as turf)
-	if(istype(O) && O.checkpass(PASS_FLAG_TABLE))
-		return 1
-	if(get_dir(O.loc, target) == dir)
-		return 0
-	return 1
 
 /obj/structure/railing/attackby(obj/item/W as obj, mob/user as mob)
 	// Dismantle

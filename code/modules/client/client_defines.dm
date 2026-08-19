@@ -86,6 +86,8 @@
 	var/list/movement_keys = list()
 	/// All keys that are configured to bypass the check for canmove or user intent.
 	var/movement_locked = FALSE
+	/// Intended direction calculated from currently held movement keys
+	var/intended_direction = 0
 	/// Next direction to add to movement_dir
 	var/next_move_dir_add = 0
 	/// Next direction to subtract from movement_dir

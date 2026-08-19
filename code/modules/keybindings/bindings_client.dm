@@ -25,9 +25,10 @@
 
 	//the time a key was pressed isn't actually used anywhere (as of 2019-9-10) but this allows easier access usage/checking
 	keys_held[_key] = world.time
-	if(!movement_locked)
-		var/movement = movement_keys[_key]
-		if(movement)
+	var/movement = movement_keys[_key]
+	if(movement)
+		calculate_move_dir()
+		if(!movement_locked)
 			next_move_dir_sub &= ~movement
 			next_move_dir_add |= movement
 
@@ -76,11 +77,12 @@
 
 	keys_held -= _key
 
-	if(!movement_locked)
-		var/movement = movement_keys[_key]
-		if(movement)
-			if(!(next_move_dir_add & movement))
-				next_move_dir_sub |= movement
+	var/movement = movement_keys[_key]
+	if(movement)
+		calculate_move_dir()
+		if(!movement_locked)
+			next_move_dir_add &= ~movement
+			next_move_dir_sub &= ~movement
 
 			if(!config.allow_diagonal_movement && movement == last_move_dir_pressed)
 				last_move_dir_pressed = 0
@@ -99,6 +101,12 @@
 	mob.key_up(_key, src)
 
 	mob.update_mouse_pointer()
+
+/client/proc/calculate_move_dir()
+	var/movement_dir = 0
+	for(var/_key in keys_held)
+		movement_dir |= movement_keys[_key]
+	intended_direction = movement_dir
 
 // Called every game tick
 /client/keyLoop()
