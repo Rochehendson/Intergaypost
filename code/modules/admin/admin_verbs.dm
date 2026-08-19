@@ -9,7 +9,9 @@ var/list/admin_verbs_default = list(
 	/client/proc/debug_variables,		//allows us to -see- the variables of any instance in the game. +VAREDIT needed to modify,
 	/client/proc/debug_global_variables,//as above but for global variables,
 //	/client/proc/check_antagonists,		//shows all antags,
-	/client/proc/cmd_mentor_check_new_players
+	/client/proc/cmd_mentor_check_new_players,
+	/datum/admins/proc/open_verb_manager,
+	/client/proc/open_verb_manager
 //	/client/proc/deadchat				//toggles deadchat on/off,
 	)
 var/list/admin_verbs_admin = list(
@@ -207,7 +209,8 @@ var/list/admin_verbs_debug = list(
 	/client/proc/cmd_analyse_health_panel,
 	/client/proc/visualpower,
 	/client/proc/enable_profiler,
-	/client/proc/visualpower_remove
+	/client/proc/visualpower_remove,
+	/datum/admins/proc/open_mc_panel
 	)
 
 var/list/admin_verbs_paranoid_debug = list(
