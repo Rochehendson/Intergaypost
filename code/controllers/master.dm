@@ -69,6 +69,9 @@ GLOBAL_REAL(Master, /datum/controller/master) = new
 	var/static/current_ticklimit = TICK_LIMIT_RUNNING
 
 /datum/controller/master/New()
+	// Ensure usr is null, to prevent any potential weirdness resulting from the MC having a usr if it's manually restarted.
+	usr = null
+
 	total_run_times = list()
 	// Highlander-style: there can only be one! Kill off the old and replace it with the new.
 	var/list/_subsystems = list()
