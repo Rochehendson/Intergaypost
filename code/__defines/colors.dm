@@ -101,3 +101,7 @@
 
 // Used by fluid system.
 #define COLOR_OCEAN "#99f5ff"
+
+// Colors for input/hotkey panel.
+#define COLOR_INPUT_DISABLED "#f0f0f0"
+#define COLOR_INPUT_ENABLED "#d3b5b5"

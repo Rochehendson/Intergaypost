@@ -152,7 +152,8 @@
 	..()
 	GLOB.moved_event.unregister(target, src)
 	awaiting_surrender = -1
-	walk_to(src, 0)
+	SSmove_manager.stop_looping(src)
+
 
 /mob/living/bot/secbot/startPatrol()
 	if(!locked) // Stop running away when we set you up

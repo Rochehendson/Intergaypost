@@ -332,9 +332,7 @@
 	src.visible_message("<span class='warning'>[src] has thrown [item].</span>", range = min(itemsize*2,world.view))
 	playsound(src, 'sound/effects/throw.ogg', 50, 1)
 
-	if(!src.lastarea)
-		src.lastarea = get_area(src.loc)
-	if((istype(src.loc, /turf/space)) || (src.lastarea.has_gravity == 0))
+	if(!check_solid_ground())
 		src.inertia_dir = get_dir(target, src)
 		step(src, inertia_dir)
 

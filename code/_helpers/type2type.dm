@@ -250,3 +250,6 @@
 			else
 				return /datum
 	return text2path(copytext(string_type, 1, last_slash))
+
+/proc/return_typenames(type)
+	return splittext("[type]", "/")
