@@ -31,14 +31,15 @@
 	//float over to our destination, if we have one
 	destination = dest_turf
 	if(destination)
-		walk_to(src, destination)
+		SSmove_manager.move_to(src, destination, priority = MOVEMENT_ABOVE_SPACE_PRIORITY)
 
 /obj/effect/effect/smoke/chem/Destroy()
-	walk(src, 0) // Because we might have called walk_to, we must stop the walk loop or BYOND keeps an internal reference to us forever.
+	SSmove_manager.stop_looping(src)
 	set_opacity(0)
 	// TODO - fadeOut() sleeps.  Sleeping in /Destroy is Bad, this needs to be fixed.
 	fadeOut()
 	return ..()
+
 
 /obj/effect/effect/smoke/chem/Move()
 	var/list/oldlocs = view(1, src)

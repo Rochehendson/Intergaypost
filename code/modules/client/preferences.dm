@@ -29,14 +29,20 @@
 	var/savefile/loaded_character
 	var/datum/category_collection/player_setup_collection/player_setup
 	var/datum/browser/panel
+	var/list/key_bindings = list()
+	var/hotkeys = TRUE
+
 
 /datum/preferences/New(client/C)
+	key_bindings = GLOB.hotkey_keybinding_list_by_key.Copy()
+
 	if(istype(C))
 		client = C
 		client_ckey = C.ckey
 		SScharacter_setup.preferences_datums[C.ckey] = src
 
 	player_setup = new(src)
+
 	gender = pick(MALE, FEMALE)
 	real_name = random_name(gender,species)
 	b_type = RANDOM_BLOOD_TYPE

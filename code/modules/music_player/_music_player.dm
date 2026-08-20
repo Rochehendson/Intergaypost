@@ -377,8 +377,9 @@ GLOBAL_LIST_EMPTY(music_players)
 		sound_token.SetVolume(volume)
 
 /obj/item/music_player/proc/explode()
-	walk_to(src, 0)
+	SSmove_manager.stop_looping(src)
 	src.visible_message(SPAN_DANGER("\The [src] blows apart!"), 1)
+
 
 	explosion(src.loc, 1, 1, 1, rand(3, 4), 1)
 

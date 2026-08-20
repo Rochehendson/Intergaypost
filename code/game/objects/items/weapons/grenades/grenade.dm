@@ -109,6 +109,7 @@
 	return
 
 /obj/item/weapon/grenade/attack_hand()
-	walk(src, null, null)
+	SSmove_manager.stop_looping(src)
 	..()
 	return
+

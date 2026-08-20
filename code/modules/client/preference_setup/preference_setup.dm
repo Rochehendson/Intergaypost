@@ -27,6 +27,12 @@ var/const/CHARACTER_PREFERENCE_INPUT_TITLE = "Character Preference"
 	sort_order = 5//7
 	category_item_type = /datum/category_item/player_setup_item/player_global
 
+/datum/category_group/player_setup_category/control_preferences
+	name = "Controls"
+	sort_order = 6
+	category_item_type = /datum/category_item/player_setup_item/controls
+
+
 /*
 /datum/category_group/player_setup_category/law_pref
 	name = "Laws"

@@ -230,6 +230,10 @@ var/list/gamemode_cache = list()
 	var/max_client_view_x = MAX_VIEW
 	var/max_client_view_y = MAX_VIEW
 
+	var/allow_diagonal_movement = TRUE
+	var/diagonal_movement_speed_normalization = TRUE
+
+
 /datum/configuration/New()
 	var/list/L = typesof(/datum/game_mode) - /datum/game_mode
 	for (var/T in L)
@@ -805,6 +809,13 @@ var/list/gamemode_cache = list()
 
 				if("show_typing_indicator_for_whispers")
 					config.show_typing_indicator_for_whispers = TRUE
+
+				if("allow_diagonal_movement")
+					config.allow_diagonal_movement = 1
+
+				if("diagonal_movement_speed_normalization")
+					config.diagonal_movement_speed_normalization = 1
+
 
 				else
 					log_misc("Unknown setting in configuration: '[name]'")

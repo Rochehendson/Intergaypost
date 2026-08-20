@@ -87,8 +87,9 @@
 				custom_emote(1, "is worn out and needs to rest." )
 				stance = HOSTILE_STANCE_TIRED
 				stance_step = 0
-				walk(src, 0) //This stops the bear's walking
+				SSmove_manager.stop_looping(src)
 				return
+
 
 
 

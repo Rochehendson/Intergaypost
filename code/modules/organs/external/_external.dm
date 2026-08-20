@@ -8,7 +8,8 @@
 	max_damage = 0
 	dir = SOUTH
 	organ_tag = "limb"
-	appearance_flags = PIXEL_SCALE
+	appearance_flags = PIXEL_SCALE | LONG_GLIDE
+
 
 	// Strings
 	var/broken_description             // fracture string if any.

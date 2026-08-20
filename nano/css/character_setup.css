@@ -450,4 +450,118 @@ html, body {
 	color: #9e9e9e;
 }
 
+/* Controls & Keybindings Table */
+.charsetup-kb-table {
+	width: 100%;
+	border-collapse: collapse;
+	font-size: 11px;
+}
+
+.charsetup-kb-row {
+	border-bottom: 1px solid #2d2d2d;
+}
+
+.charsetup-kb-row:hover {
+	background-color: rgba(255, 255, 255, 0.05);
+}
+
+.charsetup-kb-name {
+	padding: 5px 8px;
+	vertical-align: middle;
+	color: #ffffff;
+	width: 42%;
+}
+
+.charsetup-kb-keys {
+	padding: 4px 6px;
+	vertical-align: middle;
+	text-align: left;
+	width: 44%;
+}
+
+.charsetup-kb-reset-cell {
+	padding: 3px 6px;
+	vertical-align: middle;
+	text-align: right;
+	width: 14%;
+}
+
+.charsetup-kb-key-btn.link,
+.charsetup-kb-key-btn {
+	float: none !important;
+	display: inline-block !important;
+	height: auto !important;
+	line-height: 16px !important;
+	padding: 2px 7px !important;
+	margin: 1px 3px 1px 0 !important;
+	font-family: Consolas, "Lucida Console", Monaco, monospace, sans-serif !important;
+	font-weight: bold !important;
+	font-size: 11px !important;
+	background: #1f3a52 !important;
+	border: 1px solid #3b6e9b !important;
+	color: #e0f0ff !important;
+	border-radius: 3px !important;
+	text-align: center !important;
+}
+
+.charsetup-kb-key-btn.link:hover {
+	background: #2b5275 !important;
+	border-color: #5ea4e0 !important;
+	color: #ffffff !important;
+}
+
+.charsetup-kb-add-btn.link,
+.charsetup-kb-add-btn {
+	float: none !important;
+	display: inline-block !important;
+	height: auto !important;
+	line-height: 16px !important;
+	padding: 2px 6px !important;
+	margin: 1px 3px 1px 0 !important;
+	font-size: 10px !important;
+	border: 1px dashed #555555 !important;
+	background: transparent !important;
+	color: #888888 !important;
+	border-radius: 3px !important;
+}
+
+.charsetup-kb-add-btn.link:hover {
+	border-color: #2f943c !important;
+	color: #55ee66 !important;
+	background: rgba(47, 148, 60, 0.15) !important;
+}
+
+.charsetup-kb-unbound-btn.link,
+.charsetup-kb-unbound-btn {
+	float: none !important;
+	display: inline-block !important;
+	height: auto !important;
+	line-height: 16px !important;
+	padding: 2px 6px !important;
+	margin: 1px 3px 1px 0 !important;
+	font-size: 10px !important;
+	font-style: italic !important;
+	background: #331f1f !important;
+	border: 1px solid #663333 !important;
+	color: #ff8888 !important;
+	border-radius: 3px !important;
+}
+
+.charsetup-kb-unbound-btn.link:hover {
+	background: #4a2929 !important;
+	border-color: #aa4444 !important;
+	color: #ffaaaa !important;
+}
+
+.charsetup-kb-reset-btn.link,
+.charsetup-kb-reset-btn {
+	float: none !important;
+	display: inline-block !important;
+	height: auto !important;
+	line-height: 16px !important;
+	padding: 2px 6px !important;
+	font-size: 10px !important;
+	border-radius: 2px !important;
+}
+
 
