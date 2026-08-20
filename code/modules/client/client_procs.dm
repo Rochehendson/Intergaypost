@@ -146,6 +146,9 @@
 	GLOB.clients += src
 	GLOB.ckey_directory[ckey] = src
 
+	if(Master)
+		Master.UpdateTickRate()
+
 	//Admin Authorisation
 	holder = admin_datums[ckey]
 	if(holder)
@@ -235,6 +238,8 @@
 		GLOB.admins -= src
 	GLOB.ckey_directory -= ckey
 	GLOB.clients -= src
+	if(Master)
+		Master.UpdateTickRate()
 	return ..()
 
 /client/Destroy()
