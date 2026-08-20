@@ -439,6 +439,12 @@
 /client/proc/Process_Incorpmove(direct)
 	var/turf/mobloc = get_turf(mob)
 
+	next_move_dir_add = 0
+	next_move_dir_sub = 0
+
+	if(mob.updating_glide_size)
+		mob.set_glide_size(DELAY_TO_GLIDE_SIZE(world.tick_lag))
+
 	switch(mob.incorporeal_move)
 		if(1)
 			var/turf/T = get_step(mob, direct)
