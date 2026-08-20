@@ -13,6 +13,83 @@
 	if(handle_locker_topic(href, href_list))
 		return
 
+	if(href_list["mc_panel"])
+		open_mc_panel()
+		return
+
+	if(href_list["debug_mc"])
+		var/target = locate(href_list["debug_mc"])
+		if(target)
+			usr.client.debug_variables(target)
+		return
+
+	if(href_list["set_screen"])
+		vm_screen = text2num(href_list["set_screen"])
+		SSnano.update_uis(src)
+		return 1
+
+	if(href_list["select_category"])
+		vm_category = href_list["select_category"]
+		SSnano.update_uis(src)
+		return 1
+
+	if(href_list["set_search"])
+		var/search = input(usr, "Введите поисковый запрос:", "Поиск вербов", vm_search) as text|null
+		if(!isnull(search))
+			vm_search = sanitize(search)
+			SSnano.update_uis(src)
+		return 1
+
+	if(href_list["clear_search"])
+		vm_search = ""
+		SSnano.update_uis(src)
+		return 1
+
+	if(href_list["run_verb"])
+		var/cmd = href_list["run_verb"]
+		if(cmd)
+			winset(usr, null, "command=\"[cmd]\"")
+		return 1
+
+	if(href_list["toggle_group"])
+		var/act = href_list["toggle_group"]
+		switch(act)
+			if("show_all")
+				usr.client.show_verbs()
+			if("hide_most")
+				usr.client.hide_most_verbs()
+			if("hide_all")
+				usr.client.hide_verbs()
+			if("debug_on")
+				usr.client.enable_debug_verbs()
+			if("debug_off")
+				usr.client.hide_debug_verbs()
+			if("stealth")
+				usr.client.stealth()
+			if("buildmode")
+				usr.client.togglebuildmodeself()
+		SSnano.update_uis(src)
+		return 1
+
+	if(href_list["vv_target"])
+		var/target = locate(href_list["vv_target"])
+		if(target)
+			usr.client.debug_variables(target)
+		return 1
+
+	if(href_list["fire_ss"])
+		var/datum/controller/subsystem/SS = locate(href_list["fire_ss"])
+		if(istype(SS))
+			message_admins("[key_name_admin(usr)] manually fired subsystem [SS.name]")
+			SS.fire()
+			to_chat(usr, "<span class='notice'>Subsystem [SS.name] fired.</span>")
+			SSnano.update_uis(src)
+		return 1
+
+	if(href_list["refresh_mc"])
+		SSnano.update_uis(src)
+		return 1
+
 	if(href_list["dbsearchckey"] || href_list["dbsearchadmin"])
 
 		var/adminckey = href_list["dbsearchadmin"]

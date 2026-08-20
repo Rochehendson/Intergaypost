@@ -1218,6 +1218,7 @@
 #include "code\modules\admin\verbs\striketeam.dm"
 #include "code\modules\admin\verbs\ticklag.dm"
 #include "code\modules\admin\verbs\tripAI.dm"
+#include "code\modules\admin\verbs\verb_manager.dm"
 #include "code\modules\admin\verbs\SDQL_2\SDQL_2.dm"
 #include "code\modules\admin\verbs\SDQL_2\SDQL_2_parser.dm"
 #include "code\modules\admin\verbs\SDQL_2\SDQL_2_std.dm"
