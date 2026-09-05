@@ -282,10 +282,10 @@
 		switch(mob.m_intent)
 			if("run")
 				if(mob.drowsyness > 0)
-					step_delay += 6
-				step_delay += 1+config.run_speed
+					step_delay += config.run_speed+1
+				step_delay += config.run_speed
 			if("walk")
-				step_delay += 7+config.walk_speed
+				step_delay += config.walk_speed
 		step_delay += mob.movement_delay()
 
 		if((direct & (direct - 1)) && config.diagonal_movement_speed_normalization)
