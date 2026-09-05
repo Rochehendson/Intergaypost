@@ -22,7 +22,6 @@
 	from_file(S["gen_record"],pref.gen_record)
 	from_file(S["home_system"],pref.home_system)
 	from_file(S["citizenship"],pref.citizenship)
-	from_file(S["faction"],pref.faction)
 	from_file(S["religion"],pref.religion)
 	from_file(S["family"],pref.family)
 	from_file(S["nanotrasen_relation"],pref.nanotrasen_relation)
@@ -35,7 +34,6 @@
 	to_file(S["gen_record"],pref.gen_record)
 	to_file(S["home_system"],pref.home_system)
 	to_file(S["citizenship"],pref.citizenship)
-	to_file(S["faction"],pref.faction)
 	to_file(S["religion"],pref.religion)
 	to_file(S["family"],pref.family)
 	to_file(S["nanotrasen_relation"],pref.nanotrasen_relation)
@@ -57,8 +55,6 @@
 	. += "Backstory: <a href='byond://?src=\ref[src];select_backstory=1'>[pref.backstory]</a><br/>"
 	. += "[GLOB.using_map.company_name] Relation: <a href='byond://?src=\ref[src];nt_relation=1'>[pref.nanotrasen_relation]</a><br/>"
 	. += "Home System: <a href='byond://?src=\ref[src];home_system=1'>[pref.home_system]</a><br/>"
-	. += "Citizenship: <a href='byond://?src=\ref[src];citizenship=1'>[pref.citizenship]</a><br/>"
-	. += "Faction: <a href='byond://?src=\ref[src];faction=1'>[pref.faction]</a><br/>"
 	. += "Religion: <a href='byond://?src=\ref[src];religion=1'>[pref.religion]</a><br/>"
 
 	. += "<br/><b>Records</b>:<br/>"
@@ -86,7 +82,6 @@
 		"nt_relation" = pref.nanotrasen_relation,
 		"home_system" = pref.home_system,
 		"citizenship" = pref.citizenship,
-		"faction" = pref.faction,
 		"religion" = pref.religion,
 		"has_records_ban" = jobban_isbanned(user, "Records") ? 1 : 0,
 		"med_record" = pref.med_record ? pref.med_record : "",
@@ -136,18 +131,6 @@
 				pref.citizenship = raw_choice
 		else
 			pref.citizenship = choice
-		return TOPIC_REFRESH
-
-	else if(href_list["faction"])
-		var/choice = input(user, "Please choose a faction to work for.", CHARACTER_PREFERENCE_INPUT_TITLE, pref.faction) as null|anything in GLOB.using_map.faction_choices + list("None","Other")
-		if(!choice || !CanUseTopic(user))
-			return TOPIC_NOACTION
-		if(choice == "Other")
-			var/raw_choice = sanitize(input(user, "Please enter a faction.", CHARACTER_PREFERENCE_INPUT_TITLE)  as text|null, MAX_NAME_LEN)
-			if(raw_choice)
-				pref.faction = raw_choice
-		else
-			pref.faction = choice
 		return TOPIC_REFRESH
 
 	else if(href_list["religion"])

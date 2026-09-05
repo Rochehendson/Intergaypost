@@ -20,11 +20,11 @@
 	dock_name     = "Gnezdo"
 	boss_name     = "TETRACORP DIAGNOSTICS SUBROUTINE"
 	boss_short    = "TTC-D-S"
-	company_name  = "TetraCorp"
+	company_name  = "TNC"
 	company_short = "TTC"
 	system_name = "WISE 0855−0714"
 
-	map_admin_faxes = list("TETRACORP MAIL SUBROUTINE")
+	map_admin_faxes = list("TRINET MAIL SUBROUTINE")
 
 	shuttle_docked_message = " has docked with the station. Command staff is prioritised."
 	shuttle_leaving_dock = "The Elipse has departed from home dock."

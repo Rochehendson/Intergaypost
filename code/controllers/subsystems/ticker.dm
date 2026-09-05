@@ -104,12 +104,14 @@ SUBSYSTEM_DEF(ticker)
 			return
 
 	if(src.mode.isStartRequirementsSatisfied())
-		var/iswegood = 1
+		var/iswegood = 0
 		for(var/mob/new_player/player in GLOB.player_list)
-			if(player.client.prefs.job_high == "Captain" && player.ready)
+			//if(player.client.prefs.job_high == "Captain" && player.ready)
+			if(player.ready)
 				iswegood = 1
+				break
 		if(iswegood == 0)
-			to_chat(world, "<span class='tetracorp'><b>TetraCorp</span></b> does not authorize the cryogenic revival procedure without an active <span class='rose'>Captain</span>.")
+			to_chat(world, "<h1><span class='government'><b>Опаньки!</span></b> Раунд не может быть начат <span class='rose'>без игроков.</span></h1>")
 			pregame_timeleft = 60 SECONDS
 			Master.SetRunLevel(RUNLEVEL_LOBBY)
 			return

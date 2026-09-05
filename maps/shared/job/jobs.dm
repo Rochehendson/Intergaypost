@@ -231,7 +231,7 @@
 
 /datum/job/captain
 	title = "Captain"
-	supervisors = "your own wits and TetraCorp"
+	supervisors = "your own wits and New Order League"
 	minimal_player_age = 41
 	economic_modifier = 10
 	ideal_character_age = 65

@@ -525,7 +525,7 @@ var/global/datum/controller/occupations/job_master
 						spawn(50)
 							to_chat(H, "<B>.......<B> ")
 							spawn(50)
-								to_chat(H, "<B><span class = 'wakeup'>I should gather the officers for a meeting.</span> <span class = 'tetracorp'>TetraCorp</span><span class = 'wakeup'>'s bound to have sent us some new job to do...<B></span>")
+								to_chat(H, "<B><span class = 'wakeup'>I should gather the officers for a meeting.</span> <span class = 'government'>New Order League</span><span class = 'wakeup'>'s bound to have sent us some new job to do...<B></span>")
 		else
 			spawn(20)
 				to_chat(H, "<B><span class = 'wakeup'>Wh-where am I?</B></span>")
@@ -540,7 +540,7 @@ var/global/datum/controller/occupations/job_master
 								spawn(20)
 									to_chat(H, "<B>.......<B> ")
 									spawn(60)
-										to_chat(H, "<B><span class = 'wakeup'>Right, right...I'm [job.total_positions == 1 ? "the" : "a"] [alt_title ? alt_title : rank] working for </span><span class = 'tetracorp'>TetraCorp</span><span class = 'wakeup'> on one of their ''state of the art'' research outposts.</span>")
+										to_chat(H, "<B><span class = 'wakeup'>Right, right...I'm [job.total_positions == 1 ? "the" : "a"] [alt_title ? alt_title : rank] working for </span><span class = 'government'>New Order League</span><span class = 'wakeup'> on one of their ''state of the art'' research outposts.</span>")
 										spawn(20)
 											to_chat(H, "<B>.......<B>")
 											spawn(100)

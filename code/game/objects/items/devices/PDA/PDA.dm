@@ -5,7 +5,7 @@ var/global/list/obj/item/device/pda/PDAs = list()
 
 /obj/item/device/pda
 	name = "\improper PDA"
-	desc = "A portable microcomputer by TetraCorp Personal Devices. Functionality determined by a preprogrammed ROM cartridge."
+	desc = "A portable microcomputer by Tri-Net Corp Personal Devices. Functionality determined by a preprogrammed ROM cartridge."
 	icon = 'icons/obj/pda.dmi'
 	icon_state = "pda"
 	item_state = "electronic"
