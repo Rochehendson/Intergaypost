@@ -27,7 +27,7 @@
 	id_hud_icons = 'maps/dreyfus/icons/assignment_hud.dmi'
 
 
-	map_admin_faxes = list("TetraCorp Central Committee")
+	map_admin_faxes = list("TRINET Central Committee")
 
 	shuttle_docked_message = "The shuttle has docked."
 	shuttle_leaving_dock = "The shuttle has departed from home dock."

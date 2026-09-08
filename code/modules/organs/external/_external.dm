@@ -8,7 +8,8 @@
 	max_damage = 0
 	dir = SOUTH
 	organ_tag = "limb"
-	appearance_flags = PIXEL_SCALE
+	appearance_flags = PIXEL_SCALE | LONG_GLIDE
+
 
 	// Strings
 	var/broken_description             // fracture string if any.
@@ -1000,7 +1001,7 @@ Note that amputating the affected organ does in fact remove the infection from t
 
 	if(owner)
 		owner.visible_message(\
-			"<span class='tetracorp'><big>[owner]'s [name] shatters!</big></span>",\
+			"<span class='government'><big>[owner]'s [name] shatters!</big></span>",\
 			"<span class='combat'><big>Something feels like it shattered in your [name]!</big></span>",\
 			"<span class='combat'>You hear a sickening crack.</span>")
 		jostle_bone()

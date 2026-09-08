@@ -205,6 +205,16 @@ var/list/_client_preferences_by_type
 	if(preference_mob.client)
 		preference_mob.client.toggle_fullscreen(new_value == GLOB.PREF_YES)
 
+/datum/client_preference/examine_cursor
+	description = "Examine Cursor (Shift-hover)"
+	key = "SHOW_EXAMINE_CURSOR"
+	options = list(GLOB.PREF_YES, GLOB.PREF_NO)
+
+/datum/client_preference/examine_cursor/changed(var/mob/preference_mob, var/new_value)
+	if(preference_mob)
+		preference_mob.update_mouse_pointer()
+
+
 /datum/client_preference/autohiss
 	description = "Autohiss"
 	key = "AUTOHISS"

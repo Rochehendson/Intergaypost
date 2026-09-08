@@ -73,28 +73,24 @@
 		placement_msg = "in your pocket"
 	else if(H.equip_to_slot_if_possible(K, slot_l_store, disable_warning = 1))
 		placement_msg = "in your pocket"
-	// 2. Try hands
-	else if(H.put_in_hands(K))
-		placement_msg = "in your hand"
-	// 3. Try neck / amulet slot
-	else if(H.equip_to_slot_if_possible(K, slot_wear_amulet, disable_warning = 1))
-		placement_msg = "around your neck"
+	// 2. Try uniform accessory / tie clip
 	else if(H.equip_to_slot_if_possible(K, slot_tie, disable_warning = 1))
 		placement_msg = "attached to your uniform"
-	// 4. Try storage (backpack, belt, suit storage)
-	else if(istype(H.back, /obj/item/weapon/storage))
-		var/obj/item/weapon/storage/ST_back = H.back
-		if(ST_back.handle_item_insertion(K, prevent_warning = 1, NoUpdate = 1))
+	// 3. Try storage (backpack, satchel, dufflebag, belt, box)
+	else if(H.equip_to_storage(K))
+		if(H.back && (K in H.back.contents))
 			placement_msg = "in your backpack"
-	else if(istype(H.belt, /obj/item/weapon/storage))
-		var/obj/item/weapon/storage/ST_belt = H.belt
-		if(ST_belt.handle_item_insertion(K, prevent_warning = 1, NoUpdate = 1))
+		else if(H.belt && (K in H.belt.contents))
 			placement_msg = "in your belt storage"
-	else if(istype(H.s_store, /obj/item/weapon/storage))
-		var/obj/item/weapon/storage/ST_s_store = H.s_store
-		if(ST_s_store.handle_item_insertion(K, prevent_warning = 1, NoUpdate = 1))
-			placement_msg = "in your suit storage"
-	// 5. Fallback: on the floor
+		else
+			placement_msg = "in your bag"
+	// 4. Try neck / amulet slot
+	else if(H.equip_to_slot_if_possible(K, slot_wear_amulet, disable_warning = 1))
+		placement_msg = "around your neck"
+	// 5. Try hands only if not asleep
+	else if(!H.sleeping && H.put_in_hands(K))
+		placement_msg = "in your hand"
+	// 6. Fallback: on the floor
 	else
 		K.forceMove(get_turf(H))
 		placement_msg = "on the floor at your feet"

@@ -54,6 +54,10 @@
 	if(modifiers["middle"] && modifiers["shift"])
 		ShiftMiddleClickOn(A)
 		return 1
+	if(modifiers["middle"] && modifiers["alt"])
+		AltMiddleClickOn(A)
+		return 1
+
 	if(modifiers["shift"])
 		ShiftClickOn(A)
 		return 0
@@ -240,6 +244,10 @@
 /mob/proc/ShiftMiddleClickOn(var/atom/A)
 	A.ShiftMiddleClick(src)
 	return
+
+/mob/proc/AltMiddleClickOn(var/atom/A)
+	pointed(A)
+
 
 /atom/proc/ShiftMiddleClick(var/mob/user)
 	user.pointed(src)

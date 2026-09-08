@@ -263,18 +263,6 @@
 						</div>
 					</div>
 					<div class="item">
-						<div class="itemLabel">Citizenship:</div>
-						<div class="itemContent">
-							{{:helper.link(data.general.background.citizenship, null, {'item': data.general.background.ref, 'citizenship': 1})}}
-						</div>
-					</div>
-					<div class="item">
-						<div class="itemLabel">Faction:</div>
-						<div class="itemContent">
-							{{:helper.link(data.general.background.faction, null, {'item': data.general.background.ref, 'faction': 1})}}
-						</div>
-					</div>
-					<div class="item">
 						<div class="itemLabel">Medical Records:</div>
 						<div class="itemContent">
 							{{if data.general.background.has_records_ban}}
@@ -562,6 +550,65 @@
 							</div>
 						{{/for}}
 					</div>
+				{{/if}}
+			{{/if}}
+
+			<!-- CONTROLS TAB -->
+			{{if data.active_category == 'Controls'}}
+				<div class="charsetup-section">
+					<div class="charsetup-section-title">Controls & Input Settings</div>
+					<div class="item">
+						<div class="itemLabel">Input Mode:</div>
+						<div class="itemContent">
+							{{:helper.link(data.controls.keybindings.hotkeys ? 'Hotkey Mode (WASD)' : 'Classic Mode', 'gear', {'item': data.controls.keybindings.ref, 'toggle_hotkeys': 1}, null, data.controls.keybindings.hotkeys ? 'selected' : null)}}
+						</div>
+					</div>
+					<div class="item">
+						<div class="itemLabel">Quick Actions:</div>
+						<div class="itemContent">
+							{{:helper.link('Reset All Keybindings', 'refresh', {'item': data.controls.keybindings.ref, 'preference': 'keybindings_reset'})}}
+							{{:helper.link('Fix / Reset Macros', 'wrench', {'item': data.controls.keybindings.ref, 'fix_macros': 1})}}
+						</div>
+					</div>
+				</div>
+
+				{{if data.controls && data.controls.keybindings && data.controls.keybindings.categories}}
+					{{for data.controls.keybindings.categories :catVal:catIndex}}
+						<div class="charsetup-section">
+							<div class="charsetup-section-title">{{:catVal.name}}</div>
+							<table class="charsetup-kb-table">
+								{{for catVal.bindings :bindVal:bindIndex}}
+									<tr class="charsetup-kb-row">
+										<td class="charsetup-kb-name">
+											<b>{{:bindVal.full_name}}</b>
+											{{if bindVal.description}}
+												<br><span class="idle" style="font-size: 10px;">{{:bindVal.description}}</span>
+											{{/if}}
+										</td>
+										<td class="charsetup-kb-keys">
+											{{if bindVal.has_keys}}
+												{{for bindVal.keys :keyVal:keyIndex}}
+													{{:helper.link(keyVal.display_name, null, {'item': data.controls.keybindings.ref, 'preference': 'keybindings_capture', 'keybinding': bindVal.name, 'old_key': keyVal.key}, null, 'charsetup-kb-key-btn')}}
+												{{/for}}
+												{{if bindVal.can_add}}
+													{{:helper.link('+ Add', 'plus', {'item': data.controls.keybindings.ref, 'preference': 'keybindings_capture', 'keybinding': bindVal.name, 'old_key': 'None'}, null, 'charsetup-kb-add-btn')}}
+												{{/if}}
+											{{else}}
+												{{:helper.link('Unbound', 'plus', {'item': data.controls.keybindings.ref, 'preference': 'keybindings_capture', 'keybinding': bindVal.name, 'old_key': 'None'}, null, 'charsetup-kb-unbound-btn')}}
+											{{/if}}
+										</td>
+										<td class="charsetup-kb-reset-cell">
+											{{if !bindVal.is_default}}
+												{{:helper.link('Reset', 'refresh', {'item': data.controls.keybindings.ref, 'preference': 'keybinding_reset', 'keybinding': bindVal.name, 'old_keys': bindVal.old_keys_str}, null, 'charsetup-kb-reset-btn')}}
+											{{else}}
+												<span class="idle" style="font-size: 11px;">Default</span>
+											{{/if}}
+										</td>
+									</tr>
+								{{/for}}
+							</table>
+						</div>
+					{{/for}}
 				{{/if}}
 			{{/if}}
 		</div>

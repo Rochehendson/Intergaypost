@@ -281,8 +281,9 @@
 	update_icon()
 	density = 0
 	adjustBruteLoss(maxHealth) //Make sure dey dead.
-	walk_to(src,0)
+	SSmove_manager.stop_looping(src)
 	return ..(gibbed,deathmessage,show_dead_message)
+
 
 /mob/living/simple_animal/ex_act(severity)
 	if(!blinded)
