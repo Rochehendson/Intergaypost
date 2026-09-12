@@ -326,7 +326,7 @@
 	if (!usr.client.holder)
 		return
 
-	var/dat = "<html><head><title>Player Menu</title></head>"
+	var/dat = "<html><head><meta charset='utf-8'><title>Player Menu</title></head>"
 	dat += "<body><table border=1 cellspacing=5><B><tr><th>Name</th><th>Real Name</th><th>Assigned Job</th><th>Key</th><th>Options</th><th>PM</th><th>Traitor?</th></tr></B>"
 	//add <th>IP:</th> to this if wanting to add back in IP checking
 	//add <td>(IP: [M.lastKnownIP])</td> if you want to know their ip to the lists below
@@ -397,7 +397,7 @@
 /datum/admins/proc/check_antagonists()
 	if (GAME_STATE >= RUNLEVEL_GAME)
 		var/dat = list()
-		dat += "<html><head><title>Round Status</title></head><body><h1><B>Round Status</B></h1>"
+		dat += "<html><head><meta charset='utf-8'><title>Round Status</title></head><body><h1><B>Round Status</B></h1>"
 		dat += "Current Game Mode: <B>[SSticker.mode.name]</B><BR>"
 		dat += "Round Duration: <B>[roundduration2text()]</B><BR>"
 		dat += "<B>Evacuation</B><BR>"

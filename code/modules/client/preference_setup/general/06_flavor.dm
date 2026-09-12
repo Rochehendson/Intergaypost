@@ -84,7 +84,7 @@
 	return ..()
 
 /datum/category_item/player_setup_item/general/flavor/proc/SetFlavorText(mob/user)
-	var/HTML = "<body>"
+	var/HTML = "<head><meta charset='utf-8'></head><body>"
 	HTML += "<tt><center>"
 	HTML += "<b>Set Flavour Text</b> <hr />"
 	HTML += "<br></center>"
@@ -121,7 +121,7 @@
 	return
 
 /datum/category_item/player_setup_item/general/flavor/proc/SetFlavourTextRobot(mob/user)
-	var/HTML = "<body>"
+	var/HTML = "<head><meta charset='utf-8'></head><body>"
 	HTML += "<tt><center>"
 	HTML += "<b>Set Robot Flavour Text</b> <hr />"
 	HTML += "<br></center>"

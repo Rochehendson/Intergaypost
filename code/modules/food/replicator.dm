@@ -14,12 +14,12 @@
 	var/list/queued_dishes = list()
 	var/make_time = 0
 	var/start_making = 0
-	var/list/menu = list("nutrition slab" = /obj/item/weapon/reagent_containers/food/snacks/tofu,
-					 "turkey substitute" = /obj/item/weapon/reagent_containers/food/snacks/tofurkey,
-					 "waffle substitute" = /obj/item/weapon/reagent_containers/food/snacks/soylenviridians,
-					 "nutrition fries" = /obj/item/weapon/reagent_containers/food/snacks/fries,
-					 "liquid nutrition" = /obj/item/weapon/reagent_containers/food/snacks/soydope,
-					 "pudding substitute" = /obj/item/weapon/reagent_containers/food/snacks/ricepudding)
+	var/list/menu = list("батончик" = /obj/item/weapon/reagent_containers/food/snacks/tofu,
+					 "индейка-содержимое" = /obj/item/weapon/reagent_containers/food/snacks/tofurkey,
+					 "вафле-содержащее" = /obj/item/weapon/reagent_containers/food/snacks/soylenviridians,
+					 "картошка" = /obj/item/weapon/reagent_containers/food/snacks/fries,
+					 "пищевая паста" = /obj/item/weapon/reagent_containers/food/snacks/soydope,
+					 "пуддинговая масса" = /obj/item/weapon/reagent_containers/food/snacks/ricepudding)
 
 /obj/machinery/food_replicator/Initialize()
 	. = ..()
@@ -74,41 +74,41 @@
 			for(var/menu_item in menu)
 				if(findtext(true_text, menu_item))
 					queue_dish(menu_item)
-			if(findtext(true_text, "status"))
+			if(findtext(true_text, "Статус"))
 				state_status()
-			else if(findtext(true_text, "menu"))
+			else if(findtext(true_text, "Меню"))
 				state_menu()
 	..()
 
 /obj/machinery/food_replicator/proc/state_status()
 	var/message_bio = "boop beep"
 	if(biomass == 0)
-		message_bio = "Biomass is out!"
+		message_bio = "Биомасса отсутствует!"
 	else if(biomass <= biomass_max/4)
-		message_bio = "Biomass is nearly out."
+		message_bio = "Биомасса почти исчерпана."
 	else if(biomass <= biomass_max/2)
-		message_bio = "Biomass is roughly half full."
+		message_bio = "Биомасса наполовину пуста."
 	else if(biomass != biomass_max)
-		message_bio = "Biomass is near maximum capacity!"
+		message_bio = "Биомасса почти полна!"
 	else
-		message_bio = "Biomass is full!"
+		message_bio = "Биомасса переполнена!"
 	src.audible_message("<b>\The [src]</b> states, \"[message_bio]\"")
 
 /obj/machinery/food_replicator/proc/state_menu()
-	src.audible_message("<b>\The [src]</b> states, \"Greetings! I serve the following dishes: [english_list(menu)].\"")
+	src.audible_message("<b>\The [src]</b> states, \"Доступны следующие блюда: [english_list(menu)].\"")
 
 /obj/machinery/food_replicator/proc/dispense_food(var/text)
 	var/type = menu[text]
 	if(!type)
-		src.audible_message("<b>\The [src]</b> states, \"Error! I cannot find the recipe for that item.\"")
+		src.audible_message("<b>\The [src]</b> states, \"Ошибка! Не найден рецепт продукта.\"")
 		return 0
 
 	if(biomass < biomass_per)
-		src.audible_message("<b>\The [src]</b> states, \"Error! I do not have enough biomass to serve any more dishes.\"")
+		src.audible_message("<b>\The [src]</b> states, \"Ошибка! Недостаточно биомассы.\"")
 		queued_dishes.Cut()
 		return 0
 	biomass -= biomass_per
-	src.audible_message("<b>\The [src]</b> states, \"Your [text] is ready!\"")
+	src.audible_message("<b>\The [src]</b> states, \"Ваш заказ: [text], готов!\"")
 	playsound(src.loc, 'sound/machines/ding.ogg', 50, 1)
 	src.icon_state = "[initial(icon_state)]_p"
 	var/atom/A = new type(src.loc)

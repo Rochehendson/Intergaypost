@@ -6,16 +6,21 @@
 	var/memory = ""
 
 	//Some faction information.
-	var/home_system = "Unset"           //System of birth.
+	var/home_system = "Малые сектора"           //System of birth.
 	var/citizenship = "None"            //Current home system.
 	var/faction = "None"                //Antag faction/general associated faction.
 	var/religion = "Atheism"               //Religious association.
 	var/family = TRUE
-	var/backstory = "None"
+	var/backstory = "Сотрудник"
 
 /datum/category_item/player_setup_item/general/background
 	name = "Background"
 	sort_order = 5
+
+/datum/category_item/player_setup_item/general/background/New(client/C)
+	backstory_initialize()
+	. = ..()
+
 /datum/category_item/player_setup_item/general/background/load_character(var/savefile/S)
 	from_file(S["med_record"],pref.med_record)
 	from_file(S["sec_record"],pref.sec_record)
@@ -44,17 +49,16 @@
 	if(!pref.home_system)		 pref.home_system = "Unset"
 	if(!pref.citizenship) 		pref.citizenship = "None"
 	if(!pref.faction)    		pref.faction =     "None"
-	if(!pref.religion)    		pref.religion =    "Deo Machina"
-	if(!pref.backstory || !(pref.backstory in get_all_backstory_names()))
-		pref.backstory = "None"
+	if(!pref.religion)    		pref.religion =    "Atheism"
+	if(!pref.backstory) pref.backstory = "None"
 
 	pref.nanotrasen_relation = sanitize_inlist(pref.nanotrasen_relation, COMPANY_ALIGNMENTS, initial(pref.nanotrasen_relation))
 
 /datum/category_item/player_setup_item/general/background/content(var/mob/user)
 	. += "<b>Background Information</b><br>"
 	. += "Backstory: <a href='byond://?src=\ref[src];select_backstory=1'>[pref.backstory]</a><br/>"
-	. += "[GLOB.using_map.company_name] Relation: <a href='byond://?src=\ref[src];nt_relation=1'>[pref.nanotrasen_relation]</a><br/>"
 	. += "Home System: <a href='byond://?src=\ref[src];home_system=1'>[pref.home_system]</a><br/>"
+	. += "[GLOB.using_map.company_name] Relation: <a href='byond://?src=\ref[src];nt_relation=1'>[pref.nanotrasen_relation]</a><br/>"
 	. += "Religion: <a href='byond://?src=\ref[src];religion=1'>[pref.religion]</a><br/>"
 
 	. += "<br/><b>Records</b>:<br/>"
@@ -96,11 +100,15 @@
 
 /datum/category_item/player_setup_item/general/background/OnTopic(var/href,var/list/href_list, var/mob/user)
 	if(href_list["select_backstory"] || href_list["backstory"])
-		var/list/choices = get_all_backstory_names()
-		var/choice = input(user, "Choose your character's backstory:", CHARACTER_PREFERENCE_INPUT_TITLE, pref.backstory) as null|anything in choices
+		var/list/choices = list()
+		for(var/datum/backstory/story/bs in GLOB.all_backstories)
+			if(bs.name != "None")
+				choices += bs
+		var/choice = input(user, "Выбери предысторию персонажа:", CHARACTER_PREFERENCE_INPUT_TITLE, pref.backstory) as null|anything in choices
 		if(!choice || !CanUseTopic(user))
 			return TOPIC_NOACTION
 		pref.backstory = choice
+		//to_chat(usr, "<br><b><span class='government'>[pref.backstory.name]: [pref.backstory.fluff]</b><br>STATS: [pref.backstory.desc]</span>")
 		return TOPIC_REFRESH
 
 	else if(href_list["nt_relation"])
@@ -110,17 +118,18 @@
 			return TOPIC_REFRESH
 
 	else if(href_list["home_system"])
-		var/choice = input(user, "Please choose a home system.", CHARACTER_PREFERENCE_INPUT_TITLE, pref.home_system) as null|anything in GLOB.using_map.home_system_choices + list("Unset","Other")
+		var/list/choices = list()
+		for(var/datum/backstory/homesystem/bs in GLOB.all_backstories)
+			if(bs.name != "None")
+				choices += bs
+		var/datum/backstory/choice = input(user, "Выбери родную систему:", CHARACTER_PREFERENCE_INPUT_TITLE, pref.backstory) as null|anything in choices
 		if(!choice || !CanUseTopic(user))
 			return TOPIC_NOACTION
-		if(choice == "Other")
-			var/raw_choice = sanitize(input(user, "Please enter a home system.", CHARACTER_PREFERENCE_INPUT_TITLE)  as text|null, MAX_NAME_LEN)
-			if(raw_choice && CanUseTopic(user))
-				pref.home_system = raw_choice
-		else
-			pref.home_system = choice
+		pref.home_system = choice
+		to_chat(usr, "<br><b><span class='government'>[choice]: [choice]</b><br>STATS: [choice]</span>")
 		return TOPIC_REFRESH
 
+	/*
 	else if(href_list["citizenship"])
 		var/choice = input(user, "Please choose your current citizenship.", CHARACTER_PREFERENCE_INPUT_TITLE, pref.citizenship) as null|anything in GLOB.using_map.citizenship_choices + list("None","Other")
 		if(!choice || !CanUseTopic(user))
@@ -132,6 +141,7 @@
 		else
 			pref.citizenship = choice
 		return TOPIC_REFRESH
+	*/
 
 	else if(href_list["religion"])
 		var/choice = input(user, "Please choose a religion.", CHARACTER_PREFERENCE_INPUT_TITLE, pref.religion) as null|anything in GLOB.using_map.religion_choices + list("None","Other")

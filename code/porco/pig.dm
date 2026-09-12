@@ -23,7 +23,7 @@
 		return
 	if(!client.pigReady)
 		return
-	client << output(list2params(list("#timestart", "[SSticker?.pregame_timeleft]")), "outputwindow.browser:change")
+	client << output(list2params(list("#timestart", "[floor(SSticker?.pregame_timeleft)]")), "outputwindow.browser:change")
 
 /mob/new_player/Login()
 	..()
@@ -47,14 +47,13 @@
 /*
 	if(src?.mind?.succubus)
 		text += "<a href='byond://#' id='teleportSlaves'>Teleport Slaves<br></a><a href='byond://#' id='punishSlave'>Punish Slave<br></a> <a href='byond://#' id='killSlave'>Kill Slave<br></a>"
-*/
 
-/*
+
 	if(src.verbs.Find(/mob/living/carbon/human/proc/plantEgg))
 		text += "<a href='byond://#' id='plantEgg'>Lay Egg<br></a>"
 	if(src.verbs.Find(/mob/living/carbon/human/proc/plantWeeds))
 		text += "<a href='byond://#' id='plantWeeds'>Plant Weeds<br></a>"
-*/
+
 	switch(job)
 		if("Bishop")
 			text += "<a href='byond://#'' id='Excommunicate'>Excommunicate<br></a><a href='byond://#'' id='BannishtheUndead'>Banish Undead</a><a href='byond://#'' id='RobofSins'><br>Rob of Sins<br></a><a href='byond://#' id='Epitemia''>Epitemia<br></a><a href='byond://#'' id='RewardtheInquisitor'>Reward the Inquisitor</a><a href='byond://#'' id='Coronation'><br>Coronation</a><a href='byond://#'' id='Eucharisty'><br>Eucharisty<br></a><a href='byond://#'' id='BannishSpirits'>Banish Spirits<br></a><a href='byond://#'' id='CallforChurchMeeting'>Call for Chuch Meeting<br></a><a href='byond://#' id='Marriage''>Marriage!<br></a><a href='byond://#' id='ClearName''>Clear Name<br></a>"
@@ -68,14 +67,13 @@
 			text += "<a href='byond://#' id='tellTheTruth'>Tell the Truth<br></a>"
 		if("Urchin")
 			text += "<a href='byond://#' id='tellTheTruth'>Tell the Truth<br></a>"
-/*
+
 		if("Migrant")
 			if(!migclass)
 				if(ckey in outlaw)
 					text += "<a href='byond://#' id='ChoosemigrantClass'>Choose Migrant Class!<br></a><a href='byond://#' id='ToggleOutlaw'>Toggle Outlaw!<br></a>"
 				else
 					text += "<a href='byond://#' id='ChoosemigrantClass'>Choose Migrant Class!<br></a>"
-*/
 
 		if("Count")
 			text += "<a href='byond://#' id='Reinforcement'>Change Reinforcement Type<br></a><a href='byond://#' id='Command'>Command<br></a><a href='byond://#' id='SpecialReinforcement'>Call for Special Reinforcement!<br></a><a href='byond://#' id='Recruit'>Recruit<br></a><a href='byond://#' id='CaptureThrone'>Capture Throne<br></a>"
@@ -84,16 +82,15 @@
 		if("Count Heir")
 			text += "<a href='byond://#' id='SpecialReinforcement'>Call for Special Reinforcement!<br></a>"
 
-/*
 	if(src.consyte)
 		text += "<a href='byond://#' id='Choir'>Choir<br></a><a href='byond://#' id='respark'>Respark<br></a>"
-*/
+
 	if(src.job == "Jester")
 		text += "<a href='byond://#' id='Choir'>Choir<br></a><a href='byond://#' id='nickname'>Give a nickname!<br></a>"
 		text += "<a href='byond://#' id='Choir'>Choir<br></a><a href='byond://#' id='juggle'>Juggle!<br></a>"
 		text += "<a href='byond://#' id='Choir'>Choir<br></a><a href='byond://#' id='rememberjoke'>Remember Joke!<br></a>"
 		text += "<a href='byond://#' id='Choir'>Choir<br></a><a href='byond://#' id='joke'>Joke!<br></a>"
-
+*/
 	for(var/T in text)
 		fulltext += "[T]"
 
