@@ -111,7 +111,7 @@ SUBSYSTEM_DEF(ticker)
 				iswegood = 1
 				break
 		if(iswegood == 0)
-			to_chat(world, "<h1><span class='government'><b>Опаньки!</span></b> Раунд не может быть начат <span class='rose'>без игроков.</span></h1>")
+			to_chat(world, "<h2><span class='blueglow'><b>Опаньки!</span></b> Раунд не может быть начат <span class='rose'>без игроков.</span></h2>")
 			pregame_timeleft = 60 SECONDS
 			Master.SetRunLevel(RUNLEVEL_LOBBY)
 			return

@@ -32,12 +32,12 @@
 	user.cmd_admin_pm_context()
 	return TRUE
 
-/datum/keybinding/admin/invisimin
+/datum/keybinding/admin/verbmanager
 	hotkey_keys = list("F8")
-	name = "invisimin"
-	full_name = "Invisimin"
-	description = "Toggles Invisimin"
+	name = "vema"
+	full_name = "Verb Manager"
+	description = "Opens Verb Manager"
 
-/datum/keybinding/admin/invisimin/down(client/user)
-	user.invisimin()
+/datum/keybinding/admin/verbmanager/down(client/user)
+	user.open_verb_manager()
 	return TRUE
