@@ -384,19 +384,17 @@
 var/list/rank_prefix = list(\
 	"Captain" = "Captain",\
 	"Executive Officer" = "Executive Officer",\
-	"Head Scientist" = "Head Scientist",\
+	"Head Scientist" = "Prof.",\
 	"Major" = "Major",\
-	"Vessel Overseer" = "Vessel Overseer",\
+	"Vessel Overseer" = "Overseer",\
 	"Enforcer" = "Enforcer",\
-	"Maintainer" = "Maintainer",\
-	"Medical Officer" = "Medical Officer",\
-	"General Researcher" = "General Researcher",\
-	"Anomaly Researcher" = "Anomaly Researcher",\
-	"Excavator" = "Excavator",\
-	"Anomaly Excavator" = "Anomaly Excavator",\
-	"Cargo Technician" = "Cargo Technician",\
+	"Maintainer" = "Spec.",\
+	"Medical Officer" = "Dr.",\
+	"Head Physician" = "Dr.",\
+	"General Researcher" = "Prof.",\
+	"Anomaly Researcher" = "Prof.",\
+	"Anomaly Excavator" = "Spec.",\
 	"Nutritionist" = "Nutritionist",\
-	"Sanitation Technician" = "Sanitation Technician",\
 	)
 
 /mob/living/carbon/human/proc/rank_prefix_name(name)
