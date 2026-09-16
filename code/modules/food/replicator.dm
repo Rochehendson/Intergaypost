@@ -15,11 +15,11 @@
 	var/make_time = 0
 	var/start_making = 0
 	var/list/menu = list("батончик" = /obj/item/weapon/reagent_containers/food/snacks/tofu,
-					 "индейка-содержимое" = /obj/item/weapon/reagent_containers/food/snacks/tofurkey,
-					 "вафле-содержащее" = /obj/item/weapon/reagent_containers/food/snacks/soylenviridians,
-					 "картошка" = /obj/item/weapon/reagent_containers/food/snacks/fries,
-					 "пищевая паста" = /obj/item/weapon/reagent_containers/food/snacks/soydope,
-					 "пуддинговая масса" = /obj/item/weapon/reagent_containers/food/snacks/ricepudding)
+					"индейка-содержимое" = /obj/item/weapon/reagent_containers/food/snacks/tofurkey,
+					"вафле-содержащее" = /obj/item/weapon/reagent_containers/food/snacks/soylenviridians,
+					"картошка" = /obj/item/weapon/reagent_containers/food/snacks/fries,
+					"пищевая паста" = /obj/item/weapon/reagent_containers/food/snacks/soydope,
+					"пуддинговая масса" = /obj/item/weapon/reagent_containers/food/snacks/ricepudding)
 
 /obj/machinery/food_replicator/Initialize()
 	. = ..()
@@ -160,3 +160,80 @@
 	. = ..(user)
 	if(panel_open)
 		to_chat(user, "The maintenance hatch is open.")
+
+/obj/structure/reagent_dispensers/biomasstank
+	name = "biomass tank"
+	desc = "A metal tank."
+	anchored = TRUE
+	icon = 'icons/obj/objects.dmi'
+	icon_state = "weldtank"
+	amount_per_transfer_from_this = 10
+	possible_transfer_amounts = "10;25;50;100"
+	initial_capacity = 100
+	initial_reagent_types = list(/datum/reagent/nutriment = 1)
+	atom_flags = ATOM_FLAG_CLIMBABLE
+
+/obj/structure/reagent_dispensers/metalwatertank
+	name = "metal watertank"
+	desc = "A tank containing water."
+	anchored = TRUE
+	icon = 'icons/obj/objects.dmi'
+	icon_state = "watertank"
+	amount_per_transfer_from_this = 10
+	possible_transfer_amounts = "10;25;50;100"
+	initial_capacity = 1000
+	initial_reagent_types = list(/datum/reagent/water = 1)
+	atom_flags = ATOM_FLAG_CLIMBABLE
+
+/obj/machinery/gibber/biomassmaker
+	name = "nutrient liquefier"
+	desc = "a machine that liquefies all that goes into"
+	var/obj/structure/reagent_dispensers/biomasstank/tank
+
+/obj/machinery/gibber/biomassmaker/Initialize()
+	. = ..()
+	tank = locate(/obj/structure/reagent_dispensers/biomasstank) in oview(1,loc)
+
+/obj/machinery/gibber/biomassmaker/startgibbing(mob/user as mob)
+	if(src.operating)
+		return
+	if(!src.occupant)
+		visible_message("<span class='danger'>You hear a loud metallic grinding sound.</span>")
+		return
+
+	use_power_oneoff(1000)
+	visible_message("<span class='danger'>You hear a loud squelchy grinding sound.</span>")
+	src.operating = 1
+	update_icon()
+
+	var/nutrients = 0
+
+	// Some mobs have specific meat item types.
+	if(istype(src.occupant,/mob/living/simple_animal))
+		var/mob/living/simple_animal/critter = src.occupant
+		if(critter.meat_amount)
+			nutrients += critter.meat_amount*(rand(3,7))
+
+	else if(istype(src.occupant,/mob/living/carbon/human))
+		var/mob/living/carbon/human/H = occupant
+		for (var/obj/item/organ/external/O in H.organs)
+			nutrients += rand(5, 20)
+		for (var/obj/item/organ/internal/I in H.organs)
+			nutrients += rand(3, 10)
+
+	// Small mobs don't give as much nutrition.
+	if(issmall(src.occupant))
+		nutrients *= 0.5
+
+	admin_attack_log(user, occupant, "Gibbed the victim", "Was gibbed", "gibbed")
+
+	spawn(gib_time)
+
+		src.occupant.reagents.trans_to_obj(tank)
+		src.occupant.death(1)
+		tank.reagents.add_reagent(/datum/reagent/nutriment, nutrients)
+		qdel(src.occupant)
+
+		playsound(src.loc, 'sound/effects/splat.ogg', 50, 1)
+		operating = 0
+		update_icon()

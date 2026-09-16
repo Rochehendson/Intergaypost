@@ -36,8 +36,17 @@
 
 // create a new disposal
 // find the attached trunk (if present) and init gas resvr.
+
+// ALERT TODO: DISPOSALS BROKEN FOR NOW
+// PROCESS() PROC DOESN'T CALLED ON DISPOSALHOLDER
+// FOR NOW I PLACE WORKAROUND, REPLACING DISPOSALS WITH GENERIC TRASH BINS
 /obj/machinery/disposal/New()
-	..()
+	new /obj/structure/closet/crate/bin(get_turf(src))
+	qdel_self()
+
+	return
+
+	/*
 	spawn(5)
 		trunk = locate() in src.loc
 		if(!trunk)
@@ -48,6 +57,7 @@
 
 		air_contents = new/datum/gas_mixture(PRESSURE_TANK_VOLUME)
 		update_icon()
+	*/
 
 /obj/machinery/disposal/Destroy()
 	eject()
@@ -657,10 +667,15 @@
 	// new pipe, set the icon_state as on map
 
 	Initialize()
+		qdel_self()	// CHECK LINE 40
+		return
+
+		/*
 		. = ..()
 		alpha = 255
 		base_icon_state = icon_state
 		return
+		*/
 
 	// pipe is deleted
 	// ensure if holder is present, it is expelled
