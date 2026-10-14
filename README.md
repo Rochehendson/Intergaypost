@@ -22,4 +22,4 @@
 См. tgui/LICENSE.md для лицензии MIT.
 См. tgui/assets/fonts/SIL-OFL-1.1-LICENSE.md для SIL Open Font License.
 
-Все ресурсы, включая иконки и звуки, находятся под [лицензией Creative Commons 3.0 BY-SA](http://creativecommons.org/licenses/by-sa/3.0/), если не указано иное.
+Все ресурсы, включая иконки и звуки, находятся под [лицензией Creative Commons 3.0 BY-SA](http://creativecommons.org/licenses/by-sa/3.0/), если не указано иное
